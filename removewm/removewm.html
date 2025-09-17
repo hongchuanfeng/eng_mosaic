@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Advanced Watermark Remover</title>
+    <meta name="keywords" content="remove watermark, watermark remover, image watermark removal, AI watermark removal, smart watermark remover, edge detection, texture analysis" />
+    <meta name="description" content="Free online advanced image watermark remover, using edge detection and texture analysis technology, multiple passes to ensure complete watermark removal without any interference, supports batch processing" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/removewm/removewm.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="removewm.css">
+    <style>
+        /* 与 index.html 保持一致的导航栏与头部样式 */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        /* 移动端抽屉菜单与 index 一致 */
+        @media (max-width: 768px) {
+            /* 防止父级裁剪或创建层叠上下文导致菜单被截断 */
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+            .nav-toggle { display: inline-block; }
+            /* 强化汉堡按钮的可见性（三杠更清晰） */
+            .nav-toggle { 
+                position: relative; z-index: 10002; 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Remove Watermark</h1>
+    </header>
+
+    <!-- 移动端菜单遮罩层 -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- 文件上传区域 -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🔧</div>
+                    <div class="upload-text">Click to select images or drag and drop here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Batch processing up to 5 images</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" multiple />
+            </div>
+        </section>
+
+        <!-- 去水印设置区域 -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>Watermark Removal Settings</h3>
+                
+                <div class="settings-grid">
+                    <!-- 去水印方法选择 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Watermark Removal Method</label>
+                        <div class="removal-methods">
+                            <label class="radio-label">
+                                <input type="radio" name="removalMethod" value="ai" checked />
+                                <span class="radio-mark"></span>
+                                AI Smart Removal (Recommended)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="removalMethod" value="manual" />
+                                <span class="radio-mark"></span>
+                                Manual Selection
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="removalMethod" value="auto" />
+                                <span class="radio-mark"></span>
+                                Auto Watermark Detection
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- AI去水印设置 -->
+                    <div class="setting-group" id="aiSettingsGroup">
+                        <label class="setting-label">AI Processing Intensity</label>
+                        <div class="ai-intensity-control">
+                            <input type="range" id="aiIntensitySlider" min="1" max="10" value="5" />
+                            <span id="aiIntensityValue">5</span>
+                        </div>
+                        <div class="ai-presets">
+                            <button type="button" class="ai-preset-btn" data-value="3">Light Processing</button>
+                            <button type="button" class="ai-preset-btn" data-value="5">Standard Processing</button>
+                            <button type="button" class="ai-preset-btn" data-value="8">Strong Processing</button>
+                        </div>
+                        
+                        <label class="setting-label">Watermark Type</label>
+                        <select id="watermarkType" class="watermark-type-select">
+                            <option value="text">Text Watermark</option>
+                            <option value="logo">Logo Watermark</option>
+                            <option value="stamp">Stamp Watermark</option>
+                            <option value="mixed">Mixed Watermark</option>
+                            <option value="auto">Auto Recognition</option>
+                        </select>
+                    </div>
+
+                    <!-- 手动选择区域设置 -->
+                    <div class="setting-group" id="manualSettingsGroup" style="display: none;">
+                        <label class="setting-label">Selection Tool</label>
+                        <div class="tool-selection">
+                            <label class="radio-label">
+                                <input type="radio" name="selectionTool" value="rectangle" checked />
+                                <span class="radio-mark"></span>
+                                Rectangle Selection
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="selectionTool" value="circle" />
+                                <span class="radio-mark"></span>
+                                Circle Selection
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="selectionTool" value="polygon" />
+                                <span class="radio-mark"></span>
+                                Polygon Selection
+                            </label>
+                        </div>
+                        
+                        <label class="setting-label">Repair Algorithm</label>
+                        <select id="repairAlgorithm" class="algorithm-select">
+                            <option value="inpaint">Smart Inpainting</option>
+                            <option value="clone">Clone Tool</option>
+                            <option value="blur">Blur Processing</option>
+                            <option value="average">Average Fill</option>
+                        </select>
+                    </div>
+
+                    <!-- 自动检测设置 -->
+                    <div class="setting-group" id="autoSettingsGroup" style="display: none;">
+                        <label class="setting-label">Detection Sensitivity</label>
+                        <div class="sensitivity-control">
+                            <input type="range" id="sensitivitySlider" min="1" max="10" value="5" />
+                            <span id="sensitivityValue">5</span>
+                        </div>
+                        
+                        <label class="setting-label">Detection Range</label>
+                        <div class="detection-range">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="detectCorners" checked />
+                                <span class="checkmark"></span>
+                                Detect Corners
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="detectCenter" />
+                                <span class="checkmark"></span>
+                                Detect Center
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="detectEdges" checked />
+                                <span class="checkmark"></span>
+                                Detect Edges
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 高级设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Advanced Settings</label>
+                        <div class="advanced-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="preserveQuality" checked />
+                                <span class="checkmark"></span>
+                                Preserve Original Quality
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="enhanceDetails" />
+                                <span class="checkmark"></span>
+                                Enhance Details
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="smoothEdges" checked />
+                                <span class="checkmark"></span>
+                                Smooth Edges
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="colorMatch" checked />
+                                <span class="checkmark"></span>
+                                Color Matching
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 输出设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Settings</label>
+                        <select id="outputFormat" class="format-select">
+                            <option value="original">Keep Original Format</option>
+                            <option value="jpeg">JPEG (.jpg)</option>
+                            <option value="png">PNG (.png)</option>
+                            <option value="webp">WebP (.webp)</option>
+                        </select>
+                        
+                        <label class="setting-label">Output Quality</label>
+                        <div class="quality-control">
+                            <input type="range" id="qualitySlider" min="60" max="100" value="90" />
+                            <span id="qualityValue">90%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="removeWatermarkBtn" class="btn btn-primary">Remove Watermark</button>
+                    <button id="previewBtn" class="btn btn-secondary">Preview</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片编辑区域 -->
+        <section class="editor-section" id="editorSection" style="display: none;">
+            <div class="editor-container">
+                <h3>Image Editing</h3>
+                <div class="editor-tools">
+                    <button id="selectTool" class="tool-btn active">Selection Tool</button>
+                    <button id="zoomTool" class="tool-btn">Zoom Tool</button>
+                    <button id="panTool" class="tool-btn">Pan Tool</button>
+                    <button id="resetView" class="tool-btn">Reset View</button>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="editorCanvas"></canvas>
+                    <div id="selectionOverlay" class="selection-overlay"></div>
+                </div>
+                <div class="editor-actions">
+                    <button id="confirmSelection" class="btn btn-success">Confirm Selection</button>
+                    <button id="cancelSelection" class="btn btn-outline">Cancel Selection</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片列表区域 -->
+        <section class="images-section" id="imagesSection" style="display: none;">
+            <div class="images-container">
+                <h3>Images List</h3>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- 图片项将动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 进度区域 -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-container">
+                <h3>Processing Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Preparing...</div>
+            </div>
+        </section>
+
+        <!-- 结果区域 -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-container">
+                <h3>Results</h3>
+                <div class="results-actions">
+                    <button id="downloadAllBtn" class="btn btn-success">Download All</button>
+                    <button id="downloadZipBtn" class="btn btn-info">Download ZIP</button>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- 处理结果将显示在这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用说明 -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>How to Use</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>🤖 AI Smart Watermark Removal</h4>
+                        <p>Uses advanced edge detection and texture analysis technology, multiple passes to ensure complete watermark removal without any interference</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✋ Manual Selection</h4>
+                        <p>Precisely select watermark areas, supports multiple selection tools, smart repair algorithms ensure seamless filling</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🔍 Auto Watermark Detection</h4>
+                        <p>Intelligently identifies watermark positions in images, supports corner, center, and edge area detection</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>⚙️ Advanced Optimization</h4>
+                        <p>Pre-processing noise reduction, post-processing edge preservation, color matching, detail enhancement to ensure optimal processing results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 导航菜单切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+            
+            // 检查是否为移动端
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function toggleMenu() {
+                if (isMobile()) {
+                    console.log('Toggle menu clicked');
+                    navMenu.classList.toggle('nav-menu-active');
+                    navToggle.classList.toggle('nav-toggle-active');
+                    navOverlay.classList.toggle('nav-overlay-active');
+                    
+                    // 确保菜单显示时移除隐藏的transform
+                    if (navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(0)';
+                        // 禁用页面滚动
+                        document.body.classList.add('menu-open');
+                        document.documentElement.classList.add('menu-open');
+                        
+                        // 强制设置菜单滚动属性
+                        navMenu.style.overflowY = 'scroll';
+                        navMenu.style.overflowX = 'hidden';
+                        navMenu.style.height = '100vh';
+                        navMenu.style.touchAction = 'pan-y';
+                        navMenu.style.webkitOverflowScrolling = 'touch';
+                        
+                        // 诊断：统计子项高度总和
+                        const links = navMenu.querySelectorAll('.nav-link');
+                        let totalItemsHeight = 0;
+                        links.forEach(el => { totalItemsHeight += el.offsetHeight; });
+                        console.log('Menu opened with scroll enabled');
+                        console.log('Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight, 'Items sum:', totalItemsHeight, 'Count:', links.length);
+                        console.log('Menu computed overflow-y:', getComputedStyle(navMenu).overflowY);
+
+                        // 强制添加spacer确保可滚动
+                        let spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                        spacer = document.createElement('div');
+                        spacer.id = '__nav_spacer__';
+                        spacer.style.height = '300px';
+                        spacer.style.width = '100%';
+                        spacer.style.display = 'block';
+                        spacer.style.pointerEvents = 'none';
+                        spacer.style.backgroundColor = 'transparent';
+                        spacer.style.flexShrink = '0';
+                        navMenu.appendChild(spacer);
+                        
+                        // 强制重新计算布局
+                        navMenu.offsetHeight;
+                        
+                        // 再次输出高度以验证
+                        setTimeout(function(){
+                            console.log('After spacer -> Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight);
+                            console.log('Spacer height:', spacer.offsetHeight);
+                            console.log('Can scroll:', navMenu.scrollHeight > navMenu.clientHeight);
+                            console.log('Scroll top:', navMenu.scrollTop, 'Max scroll:', navMenu.scrollHeight - navMenu.clientHeight);
+                        }, 50);
+                    } else {
+                        navMenu.style.transform = 'translateX(-100%)';
+                        // 恢复页面滚动
+                        document.body.classList.remove('menu-open');
+                        document.documentElement.classList.remove('menu-open');
+                        // 清理占位
+                        const spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                    }
+                    
+                    console.log('Menu classes:', navMenu.className);
+                }
+            }
+            
+            function closeMenu() {
+                if (isMobile()) {
+                    navMenu.classList.remove('nav-menu-active');
+                    navToggle.classList.remove('nav-toggle-active');
+                    navOverlay.classList.remove('nav-overlay-active');
+                    navMenu.style.transform = 'translateX(-100%)';
+                    // 恢复页面滚动
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+
+            // 将菜单在移动端提到 body 直下，避免任何父级层叠上下文/裁剪影响层级
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+            
+            // 添加事件监听器
+            if (navToggle) {
+                navToggle.addEventListener('click', toggleMenu);
+            }
+            
+            if (navOverlay) {
+                navOverlay.addEventListener('click', closeMenu);
+            }
+            
+            // 移动端可靠导航
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                let startX = 0, startY = 0, startT = 0;
+                const threshold = 8;
+                function onStart(e){ if(!isMobile()) return; const t=e.touches?e.touches[0]:e; startX=t.clientX; startY=t.clientY; startT=Date.now(); }
+                function onEnd(e){ if(!isMobile()) return; const t=e.changedTouches?e.changedTouches[0]:e; const dx=Math.abs(t.clientX-startX); const dy=Math.abs(t.clientY-startY); const dt=Date.now()-startT; if(dx<threshold&&dy<threshold&&dt<1500){ const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); } } }
+                link.addEventListener('touchstart', onStart, {passive:true, capture:true});
+                link.addEventListener('touchend', onEnd, {passive:false, capture:true});
+                link.addEventListener('mousedown', onStart, true);
+                link.addEventListener('mouseup', onEnd, true);
+                link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
+            });
+            
+            // 窗口大小改变时关闭菜单
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    closeMenu();
+                }
+                promoteMenuForMobile();
+            });
+            
+            // 添加滚动监听器确保菜单位置正确
+            window.addEventListener('scroll', function() {
+                if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
+                    // 菜单打开时，确保位置正确
+                    navMenu.style.top = '0';
+                }
+            });
+            
+            console.log('Menu initialized with scroll listener');
+        });
+    </script>
+    <script src="removewm.js"></script>
+</body>
+</html>
+

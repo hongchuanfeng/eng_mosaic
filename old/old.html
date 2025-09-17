@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Old Photo Restoration</title>
+    <meta name="keywords" content="old photo restoration, photo repair, image restoration, photo restoration tool, online photo restoration" />
+    <meta name="description" content="Free online old photo restoration tool, intelligently repairs damaged, faded, blurred old photos, restores original colors and details, supports batch processing" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/old/old.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="old.css">
+    <style>
+        /* Identical to index.html with higher priority, compatible with WebKit */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        /* Prevent menu from being covered by parent clipping or new stacking context */
+        .header-div, .navbar, .nav-container { overflow: visible !important; }
+        .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+        .header-div, .navbar, .nav-container { contain: unset !important; }
+        /* Raise hamburger button level and optimize visual appearance */
+        @media (max-width: 768px) {
+            .nav-toggle { 
+                display: inline-flex !important; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2); position: relative; z-index: 10002; 
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+        }
+        /* Mobile drawer menu consistent with index */
+        @media (max-width: 768px) {
+            .nav-toggle { display: inline-block; }
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:0;} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Old Photo Restoration</h1>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- File Upload Area -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text">Click to select old photos or drag here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Batch processing up to 5 photos</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" multiple />
+            </div>
+        </section>
+
+        <!-- Restoration Settings Area -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>Restoration Settings</h3>
+                
+                <div class="settings-grid">
+                    <!-- Repair Type Selection -->
+                    <div class="setting-group">
+                        <label class="setting-label">Repair Type</label>
+                        <div class="repair-types">
+                            <label class="radio-label">
+                                <input type="radio" name="repairType" value="auto" checked />
+                                <span class="radio-mark"></span>
+                                Smart Restoration (Recommended)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="repairType" value="color" />
+                                <span class="radio-mark"></span>
+                                Color Restoration
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="repairType" value="damage" />
+                                <span class="radio-mark"></span>
+                                Damage Repair
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="repairType" value="noise" />
+                                <span class="radio-mark"></span>
+                                Noise Reduction
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Repair Intensity Settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Repair Intensity</label>
+                        <div class="intensity-control">
+                            <input type="range" id="intensitySlider" min="1" max="10" value="5" />
+                            <span id="intensityValue">5</span>
+                        </div>
+                        <div class="intensity-presets">
+                            <button type="button" class="intensity-preset-btn" data-value="3">Light Restoration</button>
+                            <button type="button" class="intensity-preset-btn" data-value="5">Standard Restoration</button>
+                            <button type="button" class="intensity-preset-btn" data-value="8">Strong Restoration</button>
+                        </div>
+                    </div>
+
+                    <!-- Color Enhancement Settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Color Enhancement</label>
+                        <div class="color-controls">
+                            <div class="color-slider-group">
+                                <label>Saturation:</label>
+                                <input type="range" id="saturationSlider" min="0" max="200" value="100" />
+                                <span id="saturationValue">100%</span>
+                            </div>
+                            <div class="color-slider-group">
+                                <label>Contrast:</label>
+                                <input type="range" id="contrastSlider" min="0" max="200" value="100" />
+                                <span id="contrastValue">100%</span>
+                            </div>
+                            <div class="color-slider-group">
+                                <label>Brightness:</label>
+                                <input type="range" id="brightnessSlider" min="0" max="200" value="100" />
+                                <span id="brightnessValue">100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detail Enhancement Settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Detail Enhancement</label>
+                        <div class="detail-controls">
+                            <div class="detail-slider-group">
+                                <label>Sharpening:</label>
+                                <input type="range" id="sharpenSlider" min="0" max="100" value="30" />
+                                <span id="sharpenValue">30%</span>
+                            </div>
+                            <div class="detail-slider-group">
+                                <label>Detail Enhancement:</label>
+                                <input type="range" id="detailSlider" min="0" max="100" value="20" />
+                                <span id="detailValue">20%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Options -->
+                    <div class="setting-group">
+                        <label class="setting-label">Advanced Options</label>
+                        <div class="advanced-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoColorBalance" checked />
+                                <span class="checkmark"></span>
+                                Auto Color Balance
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="noiseReduction" checked />
+                                <span class="checkmark"></span>
+                                Noise Reduction
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="edgeEnhancement" />
+                                <span class="checkmark"></span>
+                                Edge Enhancement
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="textureRestoration" />
+                                <span class="checkmark"></span>
+                                Texture Restoration
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="scratchRemoval" />
+                                <span class="checkmark"></span>
+                                Scratch Removal
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="stainRemoval" />
+                                <span class="checkmark"></span>
+                                Stain Removal
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Output Settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Settings</label>
+                        <select id="outputFormat" class="format-select">
+                            <option value="original">Keep Original Format</option>
+                            <option value="jpeg">JPEG (.jpg)</option>
+                            <option value="png">PNG (.png)</option>
+                            <option value="webp">WebP (.webp)</option>
+                        </select>
+                        
+                        <label class="setting-label">Output Quality</label>
+                        <div class="quality-control">
+                            <input type="range" id="qualitySlider" min="60" max="100" value="95" />
+                            <span id="qualityValue">95%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="restoreBtn" class="btn btn-primary">Start Restoration</button>
+                    <button id="previewBtn" class="btn btn-secondary">Preview Results</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image List Area -->
+        <section class="images-section" id="imagesSection" style="display: none;">
+            <div class="images-container">
+                    <h3>Photo List</h3>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- Image items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Area -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-container">
+                    <h3>Restoration Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Preparing...</div>
+            </div>
+        </section>
+
+        <!-- Results Area -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-container">
+                    <h3>Restoration Results</h3>
+                <div class="results-actions">
+                    <button id="downloadAllBtn" class="btn btn-success">Download All</button>
+                    <button id="downloadZipBtn" class="btn btn-info">Download as ZIP</button>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Processing results will be displayed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Instructions -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                    <h3>Instructions</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>🤖 Intelligent Restoration</h4>
+                        <p>Automatically detects photo issues and applies optimal repair algorithms, suitable for most old photo restoration needs</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🎨 Color Restoration</h4>
+                        <p>Specifically addresses fading and color cast issues, restoring original colors and saturation to photos</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🔧 Damage Repair</h4>
+                        <p>Repairs physical damage such as tears, missing parts, and scratches, rebuilding photo integrity</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✨ Detail Enhancement</h4>
+                        <p>Advanced functions like sharpening, noise reduction, and edge enhancement to rejuvenate old photos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Unified mobile navigation logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+
+            function isMobile(){ return window.innerWidth <= 768; }
+
+            function toggleMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.toggle('nav-menu-active');
+                navToggle.classList.toggle('nav-toggle-active');
+                navOverlay.classList.toggle('nav-overlay-active');
+                if (navMenu.classList.contains('nav-menu-active')){
+                    navMenu.style.transform = 'translateX(0)';
+                    document.body.classList.add('menu-open');
+                    document.documentElement.classList.add('menu-open');
+                    navMenu.style.overflowY = 'scroll';
+                    navMenu.style.overflowX = 'hidden';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.webkitOverflowScrolling = 'touch';
+                } else {
+                    navMenu.style.transform = 'translateX(-100%)';
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+
+            function closeMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.remove('nav-menu-active');
+                navToggle.classList.remove('nav-toggle-active');
+                navOverlay.classList.remove('nav-overlay-active');
+                navMenu.style.transform = 'translateX(-100%)';
+                document.body.classList.remove('menu-open');
+                document.documentElement.classList.remove('menu-open');
+            }
+
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()){
+                    if (navMenu.parentElement !== document.body) document.body.appendChild(navMenu);
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer){
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+
+            if (navToggle) navToggle.addEventListener('click', toggleMenu);
+            if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => { link.addEventListener('click', function(){ if(isMobile()) closeMenu(); }); });
+
+            window.addEventListener('resize', function(){
+                if (!isMobile()) closeMenu();
+                promoteMenuForMobile();
+            });
+        });
+    </script>
+    <script src="old.js"></script>
+</body>
+</html>

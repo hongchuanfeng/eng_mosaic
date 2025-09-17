@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Add Text to Image</title>
+    <meta name="keywords" content="add text to image, image text, image annotation, image editing, text watermark" />
+    <meta name="description" content="Free online tool to add text to image, supports adding text on images, custom fonts, colors, positions, and effects" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/textToimage/textToimage.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="textToimage.css">
+    <style>
+        /* 与 index.html 保持一致的导航栏与头部样式 */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        /* 移动端抽屉菜单与 index 一致 */
+        @media (max-width: 768px) {
+            /* 防止父级裁剪或创建层叠上下文导致菜单被截断 */
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+            .nav-toggle { display: inline-block; }
+            /* 强化汉堡按钮的可见性（三杠更清晰） */
+            .nav-toggle { 
+                position: relative; z-index: 10002; 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+        /* 上传区域提示文案颜色为白色 */
+        .upload-hint { color: #ffffff !important; }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Add Text to Image</h1>
+    </header>
+
+    <!-- 移动端菜单遮罩层 -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- 文件上传区域 -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text">Click to select image or drag and drop here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Add text after selecting image</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" />
+            </div>
+        </section>
+
+        <!-- 文字设置区域 -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>文字设置</h3>
+                
+                <div class="settings-grid">
+                    <!-- 文字内容 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Text Content</label>
+                        <div class="text-input-group">
+                            <textarea id="textInput" class="text-input" placeholder="Enter text to add to image..." rows="3"></textarea>
+                            <div class="text-preview" id="textPreview">文字预览</div>
+                        </div>
+                    </div>
+
+                    <!-- 字体设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Font Settings</label>
+                        <div class="font-controls">
+                            <div class="font-family-group">
+                                <label>Font Family</label>
+                                <select id="fontFamily" class="font-select">
+                                    <option value="Arial, sans-serif">Arial</option>
+                                    <option value="'Microsoft YaHei', sans-serif">Microsoft YaHei</option>
+                                    <option value="'SimSun', serif">SimSun</option>
+                                    <option value="'SimHei', sans-serif">SimHei</option>
+                                    <option value="'KaiTi', serif">KaiTi</option>
+                                    <option value="'FangSong', serif">FangSong</option>
+                                    <option value="'Times New Roman', serif">Times New Roman</option>
+                                    <option value="'Courier New', monospace">Courier New</option>
+                                    <option value="'Georgia', serif">Georgia</option>
+                                    <option value="'Verdana', sans-serif">Verdana</option>
+                                </select>
+                            </div>
+                            <div class="font-size-group">
+                                <label>Font Size</label>
+                                <input type="range" id="fontSize" min="12" max="200" value="48" />
+                                <span id="fontSizeValue">48px</span>
+                            </div>
+                            <div class="font-weight-group">
+                                <label>Font Weight</label>
+                                <select id="fontWeight" class="font-select">
+                                    <option value="normal">正常</option>
+                                    <option value="bold">粗体</option>
+                                    <option value="lighter">细体</option>
+                                    <option value="bolder">特粗</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 颜色设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Color Settings</label>
+                        <div class="color-controls">
+                            <div class="color-group">
+                                <label>Text Color</label>
+                                <div class="color-input-group">
+                                    <input type="color" id="textColor" value="#ffffff" />
+                                    <input type="text" id="textColorHex" value="#ffffff" class="color-hex" />
+                                </div>
+                            </div>
+                            <div class="color-group">
+                                <label>Stroke Color</label>
+                                <div class="color-input-group">
+                                    <input type="color" id="strokeColor" value="#000000" />
+                                    <input type="text" id="strokeColorHex" value="#000000" class="color-hex" />
+                                </div>
+                            </div>
+                            <div class="color-group">
+                                <label>Background Color</label>
+                                <div class="color-input-group">
+                                    <input type="color" id="backgroundColor" value="#000000" />
+                                    <input type="text" id="backgroundColorHex" value="#000000" class="color-hex" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 位置设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Position Settings</label>
+                        <div class="position-controls">
+                            <div class="position-preset-group">
+                                <label>Preset Position</label>
+                                <div class="position-buttons">
+                                    <button class="position-btn" data-position="top-left">左上</button>
+                                    <button class="position-btn" data-position="top-center">上中</button>
+                                    <button class="position-btn" data-position="top-right">右上</button>
+                                    <button class="position-btn" data-position="center-left">左中</button>
+                                    <button class="position-btn" data-position="center">居中</button>
+                                    <button class="position-btn" data-position="center-right">右中</button>
+                                    <button class="position-btn" data-position="bottom-left">左下</button>
+                                    <button class="position-btn" data-position="bottom-center">下中</button>
+                                    <button class="position-btn" data-position="bottom-right">右下</button>
+                                </div>
+                            </div>
+                            <div class="position-custom-group">
+                                <label>Custom Position</label>
+                                <div class="position-inputs">
+                                    <div class="position-input-item">
+                                        <label>X Coordinate</label>
+                                        <input type="number" id="positionX" min="0" value="50" />
+                                    </div>
+                                    <div class="position-input-item">
+                                        <label>Y Coordinate</label>
+                                        <input type="number" id="positionY" min="0" value="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 效果设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Effect Settings</label>
+                        <div class="effect-controls">
+                            <div class="effect-option">
+                                <label class="checkbox-label">
+                                <input type="checkbox" id="addStroke" />
+                                <span class="checkmark"></span>
+                                Add Stroke
+                            </label>
+                            </div>
+                            <div class="effect-option">
+                                <label class="checkbox-label">
+                                <input type="checkbox" id="addBackground" />
+                                <span class="checkmark"></span>
+                                Add Background
+                            </label>
+                            </div>
+                            <div class="effect-option">
+                                <label class="checkbox-label">
+                                <input type="checkbox" id="addShadow" />
+                                <span class="checkmark"></span>
+                                Add Shadow
+                            </label>
+                            </div>
+                            <div class="effect-option">
+                                <label class="checkbox-label">
+                                <input type="checkbox" id="addBlur" />
+                                <span class="checkmark"></span>
+                                Background Blur
+                            </label>
+                            </div>
+                        </div>
+                        <div class="effect-settings" id="effectSettings" style="display: none;">
+                            <div class="stroke-width-group">
+                                <label>Stroke Width</label>
+                                <input type="range" id="strokeWidth" min="0" max="20" value="2" />
+                                <span id="strokeWidthValue">2px</span>
+                            </div>
+                            <div class="shadow-blur-group">
+                                <label>Shadow Blur</label>
+                                <input type="range" id="shadowBlur" min="0" max="20" value="5" />
+                                <span id="shadowBlurValue">5px</span>
+                            </div>
+                            <div class="background-opacity-group">
+                                <label>Background Opacity</label>
+                                <input type="range" id="backgroundOpacity" min="0" max="1" step="0.1" value="0.5" />
+                                <span id="backgroundOpacityValue">50%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 输出设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Settings</label>
+                        <div class="output-options">
+                            <select id="outputFormat" class="format-select">
+                                <option value="png">PNG (.png)</option>
+                                <option value="jpeg">JPEG (.jpg)</option>
+                                <option value="webp">WebP (.webp)</option>
+                            </select>
+                            <div class="quality-group" id="qualityGroup" style="display: none;">
+                                <label>图片质量</label>
+                                <input type="range" id="imageQuality" min="0.1" max="1" step="0.1" value="0.9" />
+                                <span id="imageQualityValue">90%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="previewBtn" class="btn btn-primary">Preview</button>
+                    <button id="addTextBtn" class="btn btn-success">Add Text</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear Text</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 预览区域 -->
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-container">
+                <h3>Preview</h3>
+                <div class="preview-canvas-container">
+                    <canvas id="previewCanvas"></canvas>
+                </div>
+                <div class="preview-actions">
+                    <button id="downloadBtn" class="btn btn-success">Download Image</button>
+                    <button id="downloadPngBtn" class="btn btn-info">Download PNG</button>
+                    <button id="downloadJpgBtn" class="btn btn-warning">Download JPG</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用说明 -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>How to Use</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>🖼️ Image Upload</h4>
+                        <p>Supports drag-and-drop upload or click to select images, supports common formats like JPG, PNG, GIF</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✏️ Text Settings</h4>
+                        <p>Customize font, size, color, weight and other text styles with real-time preview</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>📍 Position Control</h4>
+                        <p>Supports preset positions and custom coordinates for precise text placement on images</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✨ Effect Addition</h4>
+                        <p>Add stroke, shadow, background, blur and other effects to make text more prominent</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 导航菜单切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+            
+            function isMobile(){ return window.innerWidth <= 768; }
+            
+            function toggleMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.toggle('nav-menu-active');
+                navToggle.classList.toggle('nav-toggle-active');
+                navOverlay.classList.toggle('nav-overlay-active');
+                if (navMenu.classList.contains('nav-menu-active')){
+                    navMenu.style.transform = 'translateX(0)';
+                    document.body.classList.add('menu-open');
+                    document.documentElement.classList.add('menu-open');
+                    navMenu.style.overflowY = 'scroll';
+                    navMenu.style.overflowX = 'hidden';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.webkitOverflowScrolling = 'touch';
+                } else {
+                    navMenu.style.transform = 'translateX(-100%)';
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+            
+            function closeMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.remove('nav-menu-active');
+                navToggle.classList.remove('nav-toggle-active');
+                navOverlay.classList.remove('nav-overlay-active');
+                navMenu.style.transform = 'translateX(-100%)';
+                document.body.classList.remove('menu-open');
+                document.documentElement.classList.remove('menu-open');
+            }
+            
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()){
+                    if (navMenu.parentElement !== document.body) document.body.appendChild(navMenu);
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer){
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+            
+            if (navToggle) navToggle.addEventListener('click', toggleMenu);
+            if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => { link.addEventListener('click', function(){ if(isMobile()) closeMenu(); }); });
+            
+            window.addEventListener('resize', function(){
+                if (!isMobile()) closeMenu();
+                promoteMenuForMobile();
+            });
+        });
+    </script>
+    <script src="textToimage.js"></script>
+</body>
+</html>

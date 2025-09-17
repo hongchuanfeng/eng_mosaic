@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Background Remover (Transparent)</title>
+    <meta name="keywords" content="remove background, transparent background, image cutout, photo editing, online cutout, background removal" />
+    <meta name="description" content="Free online image background remover tool, intelligently identify subjects and remove backgrounds, support multiple cutout algorithms, make image backgrounds transparent" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/removebg/removebg.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="removebg.css">
+    <style>
+        /* Navigation style and hierarchy consistent with other pages */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; 
+        }
+        @media (max-width: 768px) {
+            /* Prevent parent clipping or new stacking context from blocking the menu */
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+
+            .nav-toggle { display: inline-block; position: relative; z-index: 10002; }
+            .nav-toggle { 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+
+            .nav-menu { 
+                position: fixed; top: 0; bottom: 0; left: 0; 
+                width: 78%; max-width: 360px; background: #fff; 
+                box-shadow: 2px 0 10px rgba(0,0,0,.12); 
+                display: block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; 
+                overflow-y: auto; -webkit-overflow-scrolling: touch; 
+                transform: translateX(-100%); transition: transform .25s ease; 
+                z-index: 10001;
+            }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Background Remover</h1>
+    </header>
+
+    <!-- Mobile menu overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- File upload area -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🎭</div>
+                    <div class="upload-text">Click to select images or drag and drop here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Batch processing supported, up to 5 images</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" multiple />
+            </div>
+        </section>
+
+        <!-- Processing settings area -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>Background Removal Settings</h3>
+                
+                <div class="settings-grid">
+                    <!-- Processing mode selection -->
+                    <div class="setting-group">
+                        <label class="setting-label">Processing Mode</label>
+                        <div class="processing-modes">
+                            <label class="radio-label">
+                                <input type="radio" name="processingMode" value="auto" checked />
+                                <span class="radio-mark"></span>
+                                Smart Recognition (Recommended)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="processingMode" value="manual" />
+                                <span class="radio-mark"></span>
+                                Manual Selection
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="processingMode" value="color" />
+                                <span class="radio-mark"></span>
+                                Color Removal
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Processing precision settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Processing Precision</label>
+                        <div class="precision-control">
+                            <input type="range" id="precisionSlider" min="1" max="10" value="7" />
+                            <span id="precisionValue">7</span>
+                        </div>
+                        <div class="precision-presets">
+                            <button type="button" class="precision-preset-btn" data-value="3">Fast Processing</button>
+                            <button type="button" class="precision-preset-btn" data-value="7">Standard Processing</button>
+                            <button type="button" class="precision-preset-btn" data-value="10">Precision Processing</button>
+                        </div>
+                    </div>
+
+                    <!-- Edge processing settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Edge Processing</label>
+                        <div class="edge-options">
+                            <label class="radio-label">
+                                <input type="radio" name="edgeMode" value="smooth" checked />
+                                <span class="radio-mark"></span>
+                                Smooth Edges
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="edgeMode" value="sharp" />
+                                <span class="radio-mark"></span>
+                                Sharp Edges
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="edgeMode" value="feather" />
+                                <span class="radio-mark"></span>
+                                Feathered Edges
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Manual selection tools -->
+                    <div class="setting-group" id="manualGroup" style="display: none;">
+                        <label class="setting-label">Manual Selection</label>
+                        <div class="manual-tools">
+                            <div class="tool-group">
+                                <label>Selection Mode:</label>
+                                <select id="selectionMode" class="tool-select">
+                                    <option value="rectangle">Rectangle Selection</option>
+                                    <option value="circle">Circle Selection</option>
+                                    <option value="polygon">Polygon Selection</option>
+                                    <option value="brush">Brush Selection</option>
+                                </select>
+                            </div>
+                            <div class="tool-group">
+                                <label>Brush Size:</label>
+                                <input type="range" id="brushSize" min="5" max="50" value="20" />
+                                <span id="brushSizeValue">20px</span>
+                            </div>
+                            <div class="tool-group">
+                                <label>Tolerance:</label>
+                                <input type="range" id="tolerance" min="0" max="100" value="30" />
+                                <span id="toleranceValue">30</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color removal settings -->
+                    <div class="setting-group" id="colorGroup" style="display: none;">
+                        <label class="setting-label">Color Removal</label>
+                        <div class="color-removal-tools">
+                            <div class="color-picker-group">
+                                <label>Background Color:</label>
+                                <input type="color" id="backgroundColor" value="#ffffff" />
+                                <button type="button" id="pickColorBtn" class="btn btn-secondary">Color Picker</button>
+                            </div>
+                            <div class="color-picker-group">
+                                <label>Tolerance Range:</label>
+                                <input type="range" id="colorTolerance" min="0" max="100" value="20" />
+                                <span id="colorToleranceValue">20</span>
+                            </div>
+                            <div class="color-picker-group">
+                                <label>Processing Range:</label>
+                                <select id="colorRange" class="tool-select">
+                                    <option value="similar">Similar Colors</option>
+                                    <option value="exact">Exact Color</option>
+                                    <option value="range">Color Range</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Advanced Settings</label>
+                        <div class="advanced-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="preserveShadows" />
+                                <span class="checkmark"></span>
+                                Preserve Shadows
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="enhanceEdges" checked />
+                                <span class="checkmark"></span>
+                                Enhance Edges
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="smoothTransitions" checked />
+                                <span class="checkmark"></span>
+                                Smooth Transitions
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="removeNoise" />
+                                <span class="checkmark"></span>
+                                Remove Noise
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoDetect" checked />
+                                <span class="checkmark"></span>
+                                Auto Detect
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="previewMode" />
+                                <span class="checkmark"></span>
+                                Preview Mode
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Output settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Settings</label>
+                        <select id="outputFormat" class="format-select">
+                            <option value="png">PNG (.png) - Supports Transparency</option>
+                            <option value="webp">WebP (.webp) - Supports Transparency</option>
+                            <option value="gif">GIF (.gif) - Supports Transparency</option>
+                        </select>
+                        
+                        <label class="setting-label">Output Quality</label>
+                        <div class="quality-control">
+                            <input type="range" id="qualitySlider" min="60" max="100" value="95" />
+                            <span id="qualityValue">95%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="processBtn" class="btn btn-primary">Start Processing</button>
+                    <button id="previewBtn" class="btn btn-secondary">Preview Effect</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image list area -->
+        <section class="images-section" id="imagesSection" style="display: none;">
+            <div class="images-container">
+                <h3>Image List</h3>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- Image items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress area -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-container">
+                <h3>Processing Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Preparing...</div>
+            </div>
+        </section>
+
+        <!-- Results area -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-container">
+                <h3>Processing Results</h3>
+                <div class="results-actions">
+                    <button id="downloadAllBtn" class="btn btn-success">Download All</button>
+                    <button id="downloadZipBtn" class="btn btn-info">Download as ZIP</button>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Processing results will be displayed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage instructions -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>Usage Instructions</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>🤖 Smart Recognition</h4>
+                        <p>Automatically identify the main subject and remove the background, suitable for most image processing needs</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✋ Manual Selection</h4>
+                        <p>Manually select the area to keep, precisely control the cutout effect</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🎨 Color Removal</h4>
+                        <p>Select specific colors to remove, suitable for images with single-color backgrounds</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>⚙️ Advanced Features</h4>
+                        <p>Professional functions such as edge processing, shadow preservation, and noise removal</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Uniform mobile navigation logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+
+            function isMobile(){ return window.innerWidth <= 768; }
+
+            function toggleMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.toggle('nav-menu-active');
+                navToggle.classList.toggle('nav-toggle-active');
+                navOverlay.classList.toggle('nav-overlay-active');
+                if (navMenu.classList.contains('nav-menu-active')){
+                    navMenu.style.transform = 'translateX(0)';
+                    document.body.classList.add('menu-open');
+                    document.documentElement.classList.add('menu-open');
+                    navMenu.style.overflowY = 'scroll';
+                    navMenu.style.overflowX = 'hidden';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.webkitOverflowScrolling = 'touch';
+                } else {
+                    navMenu.style.transform = 'translateX(-100%)';
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+
+            function closeMenu(){
+                if (!isMobile()) return;
+                navMenu.classList.remove('nav-menu-active');
+                navToggle.classList.remove('nav-toggle-active');
+                navOverlay.classList.remove('nav-overlay-active');
+                navMenu.style.transform = 'translateX(-100%)';
+                document.body.classList.remove('menu-open');
+                document.documentElement.classList.remove('menu-open');
+            }
+
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()){
+                    if (navMenu.parentElement !== document.body) document.body.appendChild(navMenu);
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer){
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+
+            if (navToggle) navToggle.addEventListener('click', toggleMenu);
+            if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => { link.addEventListener('click', function(){ if(isMobile()) closeMenu(); }); });
+
+            window.addEventListener('resize', function(){
+                if (!isMobile()) closeMenu();
+                promoteMenuForMobile();
+            });
+        });
+    </script>
+    <script src="removebg.js"></script>
+</body>
+</html>

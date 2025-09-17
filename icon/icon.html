@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Icon Generator - Create Custom Icons</title>
+    <meta name="keywords" content="icon generator, image to icon, favicon, app icon, custom icons" />
+    <meta name="description" content="Free online icon generator tool, create custom icons from images, support various formats and sizes for websites, apps and more" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/icon/icon.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="icon.css">
+    <style>
+        /* Consistent navbar and header styles with index.html */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        /* Mobile drawer menu consistent with index */
+        @media (max-width: 768px) {
+            /* Prevent parent cropping or stacking context from truncating menu */
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+            .nav-toggle { display: inline-block; }
+            /* Enhance visibility of hamburger button */
+            .nav-toggle { 
+                position: relative; z-index: 10002; 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="切换导航菜单">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Grayscale</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">Grid Crop</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Join Images</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Enlarge</a>
+                    <a href="../old/old.html" class="nav-link">Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Remove Background</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Change Background</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Icon Generator</h1>
+    </header>
+
+    <!-- Mobile menu overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- File upload area -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text">Click to select image or drag & drop here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Square images are recommended for best results</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" />
+            </div>
+        </section>
+
+        <!-- Icon settings area -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>Icon Settings</h3>
+                
+                <div class="settings-grid">
+                    <!-- Output format selection -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Format</label>
+                        <select id="outputFormat" class="format-select">
+                            <option value="png">PNG (.png)</option>
+                            <option value="ico">ICO (.ico)</option>
+                            <option value="svg">SVG (.svg)</option>
+                        </select>
+                    </div>
+
+                    <!-- Icon size selection -->
+                    <div class="setting-group">
+                        <label class="setting-label">Icon Sizes</label>
+                        <div class="size-options">
+                            <div class="size-presets">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size16" value="16" />
+                                    <span class="checkmark"></span>
+                                    16×16 (favicon)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size32" value="32" checked />
+                                    <span class="checkmark"></span>
+                                    32×32 (favicon)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size48" value="48" />
+                                    <span class="checkmark"></span>
+                                    48×48 (Windows)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size64" value="64" />
+                                    <span class="checkmark"></span>
+                                    64×64 (Windows)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size128" value="128" />
+                                    <span class="checkmark"></span>
+                                    128×128 (Android)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size256" value="256" />
+                                    <span class="checkmark"></span>
+                                    256×256 (iOS)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="size512" value="512" />
+                                    <span class="checkmark"></span>
+                                    512×512 (PWA)
+                                </label>
+                            </div>
+                            <div class="custom-size">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="customSizeEnabled" />
+                                    <span class="checkmark"></span>
+                                    Custom Size
+                                </label>
+                                <div class="custom-size-input" id="customSizeInput" style="display: none;">
+                                    <input type="number" id="customSizeValue" placeholder="Width" min="16" max="1024" value="64" />
+                                    <span>×</span>
+                                    <input type="number" id="customSizeValue2" placeholder="Height" min="16" max="1024" value="64" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Processing options -->
+                    <div class="setting-group">
+                        <label class="setting-label">Processing Options</label>
+                        <div class="processing-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="cropToSquare" checked />
+                                <span class="checkmark"></span>
+                                Crop to Square
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addPadding" />
+                                <span class="checkmark"></span>
+                                Add Padding
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addBorderRadius" />
+                                <span class="checkmark"></span>
+                                Add Border Radius
+                            </label>
+                            <div class="border-radius-control" id="borderRadiusControl" style="display: none;">
+                                <label class="setting-label">Border Radius Size</label>
+                                <div class="radius-slider">
+                                    <input type="range" id="borderRadiusSlider" min="0" max="50" value="10" />
+                                    <span id="borderRadiusValue">10px</span>
+                                </div>
+                                <div class="radius-presets">
+                                    <button type="button" class="radius-preset-btn" data-value="0">No Radius</button>
+                                    <button type="button" class="radius-preset-btn" data-value="5">Small</button>
+                                    <button type="button" class="radius-preset-btn" data-value="10">Medium</button>
+                                    <button type="button" class="radius-preset-btn" data-value="20">Large</button>
+                                    <button type="button" class="radius-preset-btn" data-value="50">Circle</button>
+                                </div>
+                            </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="optimizeForWeb" />
+                                <span class="checkmark"></span>
+                                Optimize for Web
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Background settings -->
+                    <div class="setting-group">
+                        <label class="setting-label">Background Settings</label>
+                        <div class="background-options">
+                            <label class="radio-label">
+                                <input type="radio" name="background" value="transparent" checked />
+                                <span class="radio-mark"></span>
+                                Transparent Background
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="background" value="white" />
+                                <span class="radio-mark"></span>
+                                White Background
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="background" value="custom" />
+                                <span class="radio-mark"></span>
+                                Custom Color
+                            </label>
+                            <input type="color" id="customColor" value="#ffffff" style="display: none;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="generateIconsBtn" class="btn btn-primary">Generate Icons</button>
+                    <button id="previewBtn" class="btn btn-secondary">Preview</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview area -->
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-container">
+                <h3>Preview</h3>
+                <div class="preview-grid" id="previewGrid">
+                    <!-- Preview icons will be displayed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Results area -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-container">
+                <h3>Generated Icons</h3>
+                <div class="results-actions">
+                    <button id="downloadAllBtn" class="btn btn-success">Download All</button>
+                    <button id="downloadZipBtn" class="btn btn-info">Download as ZIP</button>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Generated icons will be displayed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>Instructions</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>📱 Mobile App Icons</h4>
+                        <p>Choose 128×128 or 256×256 sizes in PNG format for Android and iOS app icons</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🌐 Website Icons</h4>
+                        <p>Select 16×16 and 32×32 sizes in ICO format for website favicons</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>📱 PWA Icons</h4>
+                        <p>Choose 512×512 size in PNG format for Progressive Web Apps</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>💡 Tips</h4>
+                        <p>Use square images, avoid small text, and choose simple designs for best results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+            
+            // Check if mobile device
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function toggleMenu() {
+                if (isMobile()) {
+                    console.log('Toggle menu clicked');
+                    navMenu.classList.toggle('nav-menu-active');
+                    navToggle.classList.toggle('nav-toggle-active');
+                    navOverlay.classList.toggle('nav-overlay-active');
+                    
+                    // Ensure menu shows by removing hidden transform
+                    if (navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(0)';
+                        // Disable page scrolling
+                        document.body.classList.add('menu-open');
+                        document.documentElement.classList.add('menu-open');
+                        
+                        // Force menu scroll properties
+                        navMenu.style.overflowY = 'scroll';
+                        navMenu.style.overflowX = 'hidden';
+                        navMenu.style.height = '100vh';
+                        navMenu.style.touchAction = 'pan-y';
+                        navMenu.style.webkitOverflowScrolling = 'touch';
+                        
+                        // Debug: Calculate total height of items
+                        const links = navMenu.querySelectorAll('.nav-link');
+                        let totalItemsHeight = 0;
+                        links.forEach(el => { totalItemsHeight += el.offsetHeight; });
+                        console.log('Menu opened with scroll enabled');
+                        console.log('Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight, 'Items sum:', totalItemsHeight, 'Count:', links.length);
+                        console.log('Menu computed overflow-y:', getComputedStyle(navMenu).overflowY);
+
+                        // Force add spacer to ensure scrollability
+                        let spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                        spacer = document.createElement('div');
+                        spacer.id = '__nav_spacer__';
+                        spacer.style.height = '300px';
+                        spacer.style.width = '100%';
+                        spacer.style.display = 'block';
+                        spacer.style.pointerEvents = 'none';
+                        spacer.style.backgroundColor = 'transparent';
+                        spacer.style.flexShrink = '0';
+                        navMenu.appendChild(spacer);
+                        
+                        // Force reflow calculation
+                        navMenu.offsetHeight;
+                        
+                        // Output height again for verification
+                        setTimeout(function(){
+                            console.log('After spacer -> Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight);
+                            console.log('Spacer height:', spacer.offsetHeight);
+                            console.log('Can scroll:', navMenu.scrollHeight > navMenu.clientHeight);
+                            console.log('Scroll top:', navMenu.scrollTop, 'Max scroll:', navMenu.scrollHeight - navMenu.clientHeight);
+                        }, 50);
+                    } else {
+                        navMenu.style.transform = 'translateX(-100%)';
+                        // 恢复页面滚动
+                        document.body.classList.remove('menu-open');
+                        document.documentElement.classList.remove('menu-open');
+                        // 清理占位
+                        const spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                    }
+                    
+                    console.log('Menu classes:', navMenu.className);
+                }
+            }
+            
+            function closeMenu() {
+                if (isMobile()) {
+                    navMenu.classList.remove('nav-menu-active');
+                    navToggle.classList.remove('nav-toggle-active');
+                    navOverlay.classList.remove('nav-overlay-active');
+                    navMenu.style.transform = 'translateX(-100%)';
+                    // 恢复页面滚动
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+
+            // Promote menu to direct child of body on mobile to avoid any parent stacking context/clipping affecting z-index
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+            
+            // Add event listeners
+            if (navToggle) {
+                navToggle.addEventListener('click', toggleMenu);
+            }
+            
+            if (navOverlay) {
+                navOverlay.addEventListener('click', closeMenu);
+            }
+            
+            // Mobile reliable navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                let startX = 0, startY = 0, startT = 0;
+                const threshold = 8;
+                function onStart(e){ if(!isMobile()) return; const t=e.touches?e.touches[0]:e; startX=t.clientX; startY=t.clientY; startT=Date.now(); }
+                function onEnd(e){ if(!isMobile()) return; const t=e.changedTouches?e.changedTouches[0]:e; const dx=Math.abs(t.clientX-startX); const dy=Math.abs(t.clientY-startY); const dt=Date.now()-startT; if(dx<threshold&&dy<threshold&&dt<1500){ const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); } } }
+                link.addEventListener('touchstart', onStart, {passive:true, capture:true});
+                link.addEventListener('touchend', onEnd, {passive:false, capture:true});
+                link.addEventListener('mousedown', onStart, true);
+                link.addEventListener('mouseup', onEnd, true);
+                link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
+            });
+            
+            // Close menu when window size changes
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    closeMenu();
+                }
+                promoteMenuForMobile();
+            });
+            
+            // Add scroll listener to ensure menu position is correct
+            window.addEventListener('scroll', function() {
+                if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
+                    // Ensure correct position when menu is open
+                    navMenu.style.top = '0';
+                }
+            });
+            
+            console.log('Menu initialized with scroll listener');
+        });
+    </script>
+    <script src="icon.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,644 @@
+/* 基础样式重置 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 头部样式 */
+.header-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto 20px auto;
+    padding: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    overflow: hidden;
+}
+
+/* 导航栏样式 */
+.navbar {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    position: relative;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 4px 6px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+    display: block;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* 汉堡菜单按钮样式 */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+/* PC端隐藏关闭按钮和菜单头部 */
+.nav-close-btn {
+    display: none;
+}
+
+.nav-menu-header {
+    display: none;
+}
+
+.hamburger {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.nav-toggle-active .hamburger:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle-active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle-active .hamburger:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* 移动端菜单遮罩层 */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.nav-overlay-active {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+
+.header-title {
+    margin: 20px 0;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* 主内容区域 */
+.main-div {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.frame-div {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.frame-top {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.frame-center {
+    min-height: 300px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* 文件上传区域 */
+.file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.file-label:hover {
+    background-color: #0056b3;
+}
+
+#fileBtn {
+    display: none;
+}
+
+/* 控制区域 */
+.controls-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.range-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+#rangeInput {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#rangeInput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
+
+#rangeInput::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    border: none;
+}
+
+.download-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #218838;
+}
+
+.download-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* 图片样式 */
+img {
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 占位符文本 */
+.placeholder-text {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* 语言切换链接 */
+center {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+center a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+center a:hover {
+    background-color: #e9ecef;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 1024px) {
+    .nav-menu {
+        gap: 3px;
+    }
+    
+    .nav-link {
+        padding: 3px 5px;
+        font-size: 0.7rem;
+    }
+}
+
+/* PC端导航菜单样式重置 */
+@media screen and (min-width: 769px) {
+    .nav-menu {
+        position: static;
+        left: auto;
+        width: 100%;
+        height: auto;
+        background: transparent;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        gap: 4px;
+        box-shadow: none;
+        overflow: visible;
+    }
+    
+    .nav-link {
+        padding: 4px 6px;
+        font-size: 0.75rem;
+        border-radius: 12px;
+        text-align: center;
+        flex: 1;
+        min-width: 0;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: none;
+        margin-bottom: 0;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        font-weight: normal;
+        display: block;
+        text-decoration: none;
+    }
+    
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+        color: white;
+        box-shadow: none;
+    }
+    
+    .nav-close-btn {
+        display: none !important;
+    }
+    
+    .nav-menu-header {
+        display: none !important;
+    }
+}
+
+/* 统一为所有页面的导航项添加图标（无需改各页面HTML） */
+.nav-link::before {
+    display: inline-block;
+    margin-right: 0; /* 与文字紧贴 */
+    font-size: 16px;
+    line-height: 1;
+}
+.nav-link[href$="index.html"]::before { content: "🧩"; }
+.nav-link[href$="crop.html"]::before { content: "✂️"; }
+.nav-link[href$="convert.html"]::before { content: "🗂️"; }
+.nav-link[href$="icon.html"]::before { content: "🧩"; }
+.nav-link[href$="compress.html"]::before { content: "🗜️"; }
+.nav-link[href$="blank.html"]::before { content: "🌓"; }
+.nav-link[href$="watermark.html"]::before { content: "💧"; }
+.nav-link[href$="removewm.html"]::before { content: "🧼"; }
+.nav-link[href$="nine.html"]::before { content: "⊞"; color: #007bff; }
+.nav-link[href$="text.html"]::before { content: "🔤"; }
+.nav-link[href$="join.html"]::before { content: "🧱"; }
+.nav-link[href$="textToimage.html"]::before { content: "🖊️"; }
+.nav-link[href$="corner.html"]::before { content: "◻️"; }
+.nav-link[href$="expand.html"]::before { content: "🔍"; }
+.nav-link[href$="old.html"]::before { content: "🖼️"; }
+.nav-link[href$="bg.html"]::before { content: "🎨"; }
+.nav-link[href$="removebg.html"]::before { content: "🪄"; }
+.nav-link[href$="changebg.html"]::before { content: "🌄"; }
+
+/* 底部统一版权（所有页面生效） */
+body::after {
+    content: "Copyright © Chuandao AI";
+    display: block;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+    
+    .header-div {
+        margin: 0 auto 15px auto;
+    }
+    
+    .nav-container {
+        padding: 0 15px;
+        height: 50px;
+        justify-content: space-between;
+    }
+    
+    /* 显示汉堡菜单按钮 */
+    .nav-toggle {
+        display: flex;
+    }
+    
+    /* 隐藏PC端菜单 */
+    .nav-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 320px;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0;
+        gap: 0;
+        z-index: 10001;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+    }
+    /* 防止父级裁剪/新层叠上下文导致抽屉被遮挡 */
+    .header-div, .navbar, .nav-container { overflow: visible !important; }
+    .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+    .header-div, .navbar, .nav-container { contain: unset !important; }
+    
+    .header-title {
+        font-size: 1.5rem;
+        margin: 15px 0;
+    }
+    
+    .main-div {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .frame-center {
+        min-height: 250px;
+    }
+    
+    .controls-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .range-label {
+        white-space: nowrap;
+        min-width: 120px;
+    }
+    
+    #rangeInput {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-div {
+        padding: 0;
+    }
+    
+    .nav-container {
+        padding: 0 10px;
+        height: 45px;
+    }
+    
+    .nav-menu {
+        width: 90%;
+        max-width: 320px;
+    }
+    
+    .nav-menu-title {
+        padding: 16px;
+        font-size: 1rem;
+    }
+    
+    .nav-link {
+        padding: 16px 18px;
+        font-size: 0.95rem;
+    }
+    
+    .header-title {
+        font-size: 1.3rem;
+        margin: 12px 0;
+        padding: 0 15px;
+    }
+    
+    .frame-top {
+        padding: 10px;
+    }
+    
+    .frame-center {
+        min-height: 200px;
+        padding: 10px;
+    }
+    
+    .controls-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .range-label {
+        min-width: auto;
+    }
+    
+    .file-label, .download-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+
+/* 移动端菜单样式 - 当菜单激活时显示 */
+@media screen and (max-width: 768px) {
+    /* 使用 html 锁定滚动，避免影响内部 fixed 容器滚动 */
+    
+    html.menu-open {
+        overflow: hidden !important;
+    }
+    .nav-menu-active {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 320px !important;
+        height: calc(100vh - 48px) !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        z-index: 10001 !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        transform: translateX(0) !important;
+        touch-action: pan-y !important;
+        overscroll-behavior: contain !important;
+    }
+    
+    .nav-menu-active .nav-menu-title {
+        padding: 20px;
+        background: #f8f9fa;
+        color: #333;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        margin: 0;
+        border-bottom: 2px solid #e9ecef;
+    }
+    
+    .nav-menu-active .nav-link {
+        padding: 16px 20px;
+        font-size: 1rem;
+        border-radius: 0;
+        text-align: left;
+        flex: none;
+        min-width: auto;
+        background-color: white;
+        color: #333;
+        border-bottom: 1px solid #f0f0f0;
+        margin: 0;
+        transition: background-color 0.2s ease;
+        box-shadow: none;
+        font-weight: 500;
+        display: block;
+        text-decoration: none;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 50px;
+        line-height: 1.2;
+    }
+    /* 确保移动端菜单显示图标，并与文字保持间距 */
+    .nav-menu-active .nav-link::before {
+        display: inline-block;
+        font-size: 16px;
+        margin-right: 8px;
+    }
+    
+    .nav-menu-active .nav-link[href$="nine.html"]::before {
+        color: #007bff;
+    }
+    
+    .nav-menu-active .nav-link:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+    
+    .nav-menu-active .nav-link:active {
+        background-color: #e9ecef;
+        color: #0056b3;
+    }
+    
+    /* 确保遮罩层在移动端正确显示 */
+    .nav-overlay-active {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+    }
+}
+
+/* 大屏幕优化 */
+@media screen and (min-width: 1200px) {
+    .main-div {
+        gap: 30px;
+    }
+    
+    .frame-center {
+        min-height: 400px;
+    }
+}
+
+/* 与 index.html 保持一致的桌面端宽度策略 */
+@media screen and (min-width: 1025px) {
+    html, body { min-width: 1600px; }
+    .header-div, .nav-container, .main-div, .main-container { max-width: none !important; }
+}

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Text to Image Tool</title>
+    <meta name="keywords" content="text to image, text to picture, image creator, text design, image generator" />
+    <meta name="description" content="Free online text to image generator, supports custom text color, background color, font size, quickly generate beautiful images" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/text/text.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="text.css">
+    <style>
+        /* 与 index.html 保持一致的导航栏与头部样式 */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        /* 移动端抽屉菜单与 index 一致 */
+        @media (max-width: 768px) {
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+            .nav-toggle { display: inline-block; }
+            .nav-toggle { 
+                position: relative; z-index: 10002; 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Text to Image</h1>
+    </header>
+
+    <!-- 移动端菜单遮罩层 -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- 文字输入区域 -->
+        <section class="input-section">
+            <div class="input-container">
+                <h3>Text Settings</h3>
+                <div class="input-group">
+                    <label for="textInput" class="input-label">Enter Text</label>
+                    <textarea id="textInput" class="text-input" placeholder="Enter text to generate image..." rows="4"></textarea>
+                </div>
+                
+                <div class="settings-grid">
+                    <!-- 字体设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Font Settings</label>
+                        <div class="font-controls">
+                            <div class="font-family-group">
+                                <label>Font Family</label>
+                                <select id="fontFamily" class="font-select">
+                                    <option value="Arial, sans-serif">Arial</option>
+                                    <option value="'Microsoft YaHei', sans-serif">Microsoft YaHei</option>
+                                    <option value="'SimSun', serif">SimSun</option>
+                                    <option value="'SimHei', sans-serif">SimHei</option>
+                                    <option value="'KaiTi', serif">KaiTi</option>
+                                    <option value="'FangSong', serif">FangSong</option>
+                                    <option value="'Times New Roman', serif">Times New Roman</option>
+                                    <option value="'Courier New', monospace">Courier New</option>
+                                    <option value="'Georgia', serif">Georgia</option>
+                                    <option value="'Verdana', sans-serif">Verdana</option>
+                                </select>
+                            </div>
+                            <div class="font-size-group">
+                                <label>Font Size</label>
+                                <input type="range" id="fontSize" min="12" max="200" value="48" />
+                                <span id="fontSizeValue">48px</span>
+                            </div>
+                            <div class="font-weight-group">
+                                <label>Font Weight</label>
+                                <select id="fontWeight" class="font-select">
+                                    <option value="normal">正常</option>
+                                    <option value="bold">粗体</option>
+                                    <option value="lighter">细体</option>
+                                    <option value="bolder">特粗</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 颜色设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Color Settings</label>
+                        <div class="color-controls">
+                            <div class="color-group">
+                                <label>Text Color</label>
+                                <div class="color-input-group">
+                                    <input type="color" id="textColor" value="#000000" />
+                                    <input type="text" id="textColorHex" value="#000000" class="color-hex" />
+                                </div>
+                            </div>
+                            <div class="color-group">
+                                <label>Background Color</label>
+                                <div class="color-input-group">
+                                    <input type="color" id="backgroundColor" value="#ffffff" />
+                                    <input type="text" id="backgroundColorHex" value="#ffffff" class="color-hex" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 布局设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Layout Settings</label>
+                        <div class="layout-controls">
+                            <div class="canvas-size-group">
+                                <label>Canvas Size</label>
+                                <div class="size-inputs">
+                                    <input type="number" id="canvasWidth" min="100" max="2000" value="800" placeholder="宽度" />
+                                    <span>×</span>
+                                    <input type="number" id="canvasHeight" min="100" max="2000" value="400" placeholder="高度" />
+                                </div>
+                            </div>
+                            <div class="text-align-group">
+                                <label>Text Alignment</label>
+                                <div class="align-buttons">
+                                    <button class="align-btn" data-align="left">Left</button>
+                                    <button class="align-btn active" data-align="center">Center</button>
+                                    <button class="align-btn" data-align="right">Right</button>
+                                </div>
+                            </div>
+                            <div class="padding-group">
+                                <label>Padding</label>
+                                <input type="range" id="padding" min="0" max="100" value="20" />
+                                <span id="paddingValue">20px</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 效果设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Effect Settings</label>
+                        <div class="effect-controls">
+                            <label class="checkbox-label">
+                                    <input type="checkbox" id="addShadow" />
+                                    <span class="checkmark"></span>
+                                    Add Shadow
+                                </label>
+                            <label class="checkbox-label">
+                                    <input type="checkbox" id="addBorder" />
+                                    <span class="checkmark"></span>
+                                    Add Border
+                                </label>
+                            <label class="checkbox-label">
+                                    <input type="checkbox" id="addGradient" />
+                                    <span class="checkmark"></span>
+                                    Gradient Background
+                                </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="generateBtn" class="btn btn-primary">Generate Image</button>
+                    <button id="previewBtn" class="btn btn-secondary">Preview</button>
+                    <button id="clearBtn" class="btn btn-outline">Clear Content</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 预览区域 -->
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-container">
+                <h3>Preview</h3>
+                <div class="preview-canvas-container">
+                    <canvas id="previewCanvas" width="800" height="400"></canvas>
+                </div>
+                <div class="preview-actions">
+                    <button id="downloadBtn" class="btn btn-success">Download Image</button>
+                    <button id="downloadPngBtn" class="btn btn-info">Download PNG</button>
+                    <button id="downloadJpgBtn" class="btn btn-warning">Download JPG</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用说明 -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>How to Use</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>✏️ Text Input</h4>
+                        <p>Enter the text content you want to generate image in the text box, supports multiple lines of text</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🎨 Style Settings</h4>
+                        <p>Customize font, size, color, background color and other styles to create personalized images</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>📐 Layout Adjustment</h4>
+                        <p>Adjust canvas size, text alignment, padding and other layout parameters</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>✨ Effect Addition</h4>
+                        <p>Add shadows, borders, gradient backgrounds and other effects to make the image more beautiful</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 导航菜单切换功能（修复遮罩层问题：点击按钮时按钮在遮罩之上）
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+            
+            function isMobile() { return window.innerWidth <= 768; }
+            
+            function toggleMenu() {
+                if (!isMobile()) return;
+                // 确保按钮层级高于遮罩
+                if (navToggle) navToggle.style.zIndex = '10002';
+                navMenu.classList.toggle('nav-menu-active');
+                navToggle.classList.toggle('nav-toggle-active');
+                navOverlay.classList.toggle('nav-overlay-active');
+                
+                if (navMenu.classList.contains('nav-menu-active')) {
+                    navMenu.style.transform = 'translateX(0)';
+                    document.body.classList.add('menu-open');
+                    document.documentElement.classList.add('menu-open');
+                    navMenu.style.overflowY = 'scroll';
+                    navMenu.style.overflowX = 'hidden';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.webkitOverflowScrolling = 'touch';
+                } else {
+                    navMenu.style.transform = 'translateX(-100%)';
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+            
+            function closeMenu() {
+                if (!isMobile()) return;
+                navMenu.classList.remove('nav-menu-active');
+                navToggle.classList.remove('nav-toggle-active');
+                navOverlay.classList.remove('nav-overlay-active');
+                navMenu.style.transform = 'translateX(-100%)';
+                document.body.classList.remove('menu-open');
+                document.documentElement.classList.remove('menu-open');
+            }
+            
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) document.body.appendChild(navMenu);
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+            
+            if (navToggle) navToggle.addEventListener('click', toggleMenu);
+            if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(){ if(isMobile()) closeMenu(); });
+            });
+            
+            window.addEventListener('resize', function(){
+                if (!isMobile()) closeMenu();
+                promoteMenuForMobile();
+            });
+        });
+    </script>
+    <script src="text.js"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online free image mosaic - Add Watermark to Images</title>
+    <meta name="keywords" content="add watermark to image, online watermark tool, image watermark maker, text watermark, image watermark, copyright protection" />
+    <meta name="description" content="Free online tool to add watermark to images, supports text watermark, image watermark, multiple positions and styles, batch processing, copyright protection" />
+    <link rel="canonical" href="https://mosaic.chdaoai.com/watermark/watermark.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YFLKRH7D');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css.css">
+    <link rel="stylesheet" href="watermark.css">
+    <style>
+        /* 与 index.html 保持一致的导航栏与头部样式 */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.1) !important; 
+            backdrop-filter: blur(10px) !important; 
+            -webkit-backdrop-filter: blur(10px) !important; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        }
+        .header-div {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        /* 移动端抽屉菜单与 index 一致 */
+        @media (max-width: 768px) {
+            /* 防止父级裁剪或创建层叠上下文导致菜单被截断 */
+            .header-div, .navbar, .nav-container { overflow: visible !important; }
+            .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
+            .header-div, .navbar, .nav-container { contain: unset !important; }
+            .nav-toggle { display: inline-block; }
+            /* 强化汉堡按钮的可见性（三杠更清晰） */
+            .nav-toggle { 
+                position: relative; z-index: 10002; 
+                display: inline-flex; align-items: center; justify-content: center; 
+                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
+                background: rgba(255,255,255,.55); border-radius: 8px; 
+                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            }
+            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu.nav-menu-active { transform: translateX(0); }
+            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
+            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
+            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-div">
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="../index.html" class="nav-link">Mosaic</a>
+                    <a href="../crop/crop.html" class="nav-link">Crop</a>
+                    <a href="../convert/convert.html" class="nav-link">Convert</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../compress/compress.html" class="nav-link">Compress</a>
+                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
+                    <a href="watermark.html" class="nav-link">Add Watermark</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
+                    <a href="../text/text.html" class="nav-link">Text to Image</a>
+                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
+                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
+                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
+                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="header-title">Add Watermark</h1>
+    </header>
+
+    <!-- 移动端菜单遮罩层 -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main class="main-container">
+        <!-- 文件上传区域 -->
+        <section class="upload-section">
+            <div class="upload-area">
+                <label for="fileInput" class="file-label">
+                    <div class="upload-icon">🏷️</div>
+                    <div class="upload-text">Click to select image or drag and drop here</div>
+                    <div class="upload-hint">Supports JPG, PNG, GIF, BMP, WebP formats</div>
+                    <div class="upload-hint">Batch processing up to 10 images</div>
+                </label>
+                <input type="file" id="fileInput" accept="image/*" multiple />
+            </div>
+        </section>
+
+        <!-- 水印设置区域 -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="settings-container">
+                <h3>Watermark Settings</h3>
+                
+                <div class="settings-grid">
+                    <!-- 水印类型选择 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Watermark Type</label>
+                        <div class="watermark-types">
+                            <label class="radio-label">
+                                <input type="radio" name="watermarkType" value="text" checked />
+                                <span class="radio-mark"></span>
+                                Text Watermark
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="watermarkType" value="image" />
+                                <span class="radio-mark"></span>
+                                Image Watermark
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 文字水印设置 -->
+                    <div class="setting-group" id="textWatermarkGroup">
+                        <label class="setting-label">Text Content</label>
+                        <input type="text" id="watermarkText" placeholder="Enter watermark text" value="© 2024" class="text-input" />
+                        
+                        <label class="setting-label">Font Size</label>
+                        <div class="font-size-control">
+                            <input type="range" id="fontSizeSlider" min="12" max="72" value="24" />
+                            <span id="fontSizeValue">24px</span>
+                        </div>
+                        
+                        <label class="setting-label">Font Color</label>
+                        <div class="color-control">
+                            <input type="color" id="textColor" value="#ffffff" />
+                            <input type="range" id="opacitySlider" min="10" max="100" value="80" />
+                            <span id="opacityValue">80%</span>
+                        </div>
+                        
+                        <label class="setting-label">Font Style</label>
+                        <select id="fontFamily" class="font-select">
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Microsoft YaHei">Microsoft YaHei</option>
+                            <option value="SimSun">SimSun</option>
+                            <option value="SimHei">SimHei</option>
+                        </select>
+                    </div>
+
+                    <!-- 图片水印设置 -->
+                    <div class="setting-group" id="imageWatermarkGroup" style="display: none;">
+                        <label class="setting-label">Watermark Image</label>
+                        <div class="image-upload-area">
+                            <label for="watermarkImageInput" class="image-upload-label">
+                                <div class="upload-icon-small">📷</div>
+                                <div>Select Watermark Image</div>
+                            </label>
+                            <input type="file" id="watermarkImageInput" accept="image/*" />
+                            <div id="watermarkImagePreview" class="watermark-preview"></div>
+                        </div>
+                        
+                        <label class="setting-label">Watermark Size</label>
+                        <div class="size-control">
+                            <input type="range" id="watermarkSizeSlider" min="20" max="200" value="100" />
+                            <span id="watermarkSizeValue">100px</span>
+                        </div>
+                        
+                        <label class="setting-label">Opacity</label>
+                        <div class="opacity-control">
+                            <input type="range" id="watermarkOpacitySlider" min="10" max="100" value="80" />
+                            <span id="watermarkOpacityValue">80%</span>
+                        </div>
+                    </div>
+
+                    <!-- 水印位置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Watermark Position</label>
+                        <div class="position-grid">
+                            <button type="button" class="position-btn" data-position="top-left">↖</button>
+                            <button type="button" class="position-btn" data-position="top-center">↑</button>
+                            <button type="button" class="position-btn" data-position="top-right">↗</button>
+                            <button type="button" class="position-btn" data-position="middle-left">←</button>
+                            <button type="button" class="position-btn active" data-position="bottom-right">↘</button>
+                            <button type="button" class="position-btn" data-position="middle-right">→</button>
+                            <button type="button" class="position-btn" data-position="bottom-left">↙</button>
+                            <button type="button" class="position-btn" data-position="bottom-center">↓</button>
+                            <button type="button" class="position-btn" data-position="center">⊙</button>
+                        </div>
+                        <div class="custom-position">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="customPosition" />
+                                <span class="checkmark"></span>
+                                Custom Position
+                            </label>
+                            <div class="position-inputs" id="positionInputs" style="display: none;">
+                                <input type="number" id="positionX" placeholder="X Coordinate" min="0" />
+                                <input type="number" id="positionY" placeholder="Y Coordinate" min="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 水印样式 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Watermark Style</label>
+                        <div class="style-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addShadow" />
+                                <span class="checkmark"></span>
+                                Add Shadow
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addBorder" />
+                                <span class="checkmark"></span>
+                                Add Border
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rotateWatermark" />
+                                <span class="checkmark"></span>
+                                Rotate Watermark
+                            </label>
+                        </div>
+                        <div class="rotation-control" id="rotationControl" style="display: none;">
+                            <label class="setting-label">Rotation Angle</label>
+                            <input type="range" id="rotationSlider" min="-180" max="180" value="0" />
+                            <span id="rotationValue">0°</span>
+                        </div>
+                    </div>
+
+                    <!-- 输出设置 -->
+                    <div class="setting-group">
+                        <label class="setting-label">Output Settings</label>
+                        <div class="output-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="maintainQuality" checked />
+                                <span class="checkmark"></span>
+                                Maintain Original Quality
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addMultipleWatermarks" />
+                                <span class="checkmark"></span>
+                                Add Multiple Watermarks
+                            </label>
+                        </div>
+                        <select id="outputFormat" class="format-select">
+                            <option value="original">Keep Original Format</option>
+                            <option value="jpeg">JPEG (.jpg)</option>
+                            <option value="png">PNG (.png)</option>
+                            <option value="webp">WebP (.webp)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="addWatermarkBtn" class="btn btn-primary">Add Watermark</button>
+            <button id="previewBtn" class="btn btn-secondary">Preview</button>
+            <button id="clearBtn" class="btn btn-outline">Clear List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片列表区域 -->
+        <section class="images-section" id="imagesSection" style="display: none;">
+            <div class="images-container">
+                <h3>Image List</h3>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- 图片项将动态添加到这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 进度区域 -->
+        <section class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-container">
+                <h3>Processing Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">准备中...</div>
+            </div>
+        </section>
+
+        <!-- 结果区域 -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-container">
+                <h3>Results</h3>
+                <div class="results-actions">
+                    <button id="downloadAllBtn" class="btn btn-success">Download All</button>
+                    <button id="downloadZipBtn" class="btn btn-info">Download as ZIP</button>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- 处理结果将显示在这里 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用说明 -->
+        <section class="instructions-section">
+            <div class="instructions-container">
+                <h3>How to Use</h3>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <h4>📝 Text Watermark</h4>
+                        <p>Enter text content, adjust font, size, color and opacity, suitable for adding copyright information, brand names, etc.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🖼️ Image Watermark</h4>
+                        <p>Upload logo or icon as watermark, adjust size and opacity, suitable for brand identity protection</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>📍 Position Control</h4>
+                        <p>Choose preset position or custom coordinates to precisely control the watermark position on the image</p>
+                    </div>
+                    <div class="instruction-item">
+                        <h4>🎨 Style Effects</h4>
+                        <p>Add shadow, border, rotation and other effects to make the watermark more beautiful and professional</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 导航菜单切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const navOriginalContainer = navMenu ? navMenu.parentElement : null;
+            
+            // 检查是否为移动端
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            function toggleMenu() {
+                if (isMobile()) {
+                    console.log('Toggle menu clicked');
+                    navMenu.classList.toggle('nav-menu-active');
+                    navToggle.classList.toggle('nav-toggle-active');
+                    navOverlay.classList.toggle('nav-overlay-active');
+                    
+                    // 确保菜单显示时移除隐藏的transform
+                    if (navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(0)';
+                        // 禁用页面滚动
+                        document.body.classList.add('menu-open');
+                        document.documentElement.classList.add('menu-open');
+                        
+                        // 强制设置菜单滚动属性
+                        navMenu.style.overflowY = 'scroll';
+                        navMenu.style.overflowX = 'hidden';
+                        navMenu.style.height = '100vh';
+                        navMenu.style.touchAction = 'pan-y';
+                        navMenu.style.webkitOverflowScrolling = 'touch';
+                        
+                        // 诊断：统计子项高度总和
+                        const links = navMenu.querySelectorAll('.nav-link');
+                        let totalItemsHeight = 0;
+                        links.forEach(el => { totalItemsHeight += el.offsetHeight; });
+                        console.log('Menu opened with scroll enabled');
+                        console.log('Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight, 'Items sum:', totalItemsHeight, 'Count:', links.length);
+                        console.log('Menu computed overflow-y:', getComputedStyle(navMenu).overflowY);
+
+                        // 强制添加spacer确保可滚动
+                        let spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                        spacer = document.createElement('div');
+                        spacer.id = '__nav_spacer__';
+                        spacer.style.height = '300px';
+                        spacer.style.width = '100%';
+                        spacer.style.display = 'block';
+                        spacer.style.pointerEvents = 'none';
+                        spacer.style.backgroundColor = 'transparent';
+                        spacer.style.flexShrink = '0';
+                        navMenu.appendChild(spacer);
+                        
+                        // 强制重新计算布局
+                        navMenu.offsetHeight;
+                        
+                        // 再次输出高度以验证
+                        setTimeout(function(){
+                            console.log('After spacer -> Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight);
+                            console.log('Spacer height:', spacer.offsetHeight);
+                            console.log('Can scroll:', navMenu.scrollHeight > navMenu.clientHeight);
+                            console.log('Scroll top:', navMenu.scrollTop, 'Max scroll:', navMenu.scrollHeight - navMenu.clientHeight);
+                        }, 50);
+                    } else {
+                        navMenu.style.transform = 'translateX(-100%)';
+                        // 恢复页面滚动
+                        document.body.classList.remove('menu-open');
+                        document.documentElement.classList.remove('menu-open');
+                        // 清理占位
+                        const spacer = document.getElementById('__nav_spacer__');
+                        if (spacer && spacer.parentElement === navMenu) {
+                            navMenu.removeChild(spacer);
+                        }
+                    }
+                    
+                    console.log('Menu classes:', navMenu.className);
+                }
+            }
+            
+            function closeMenu() {
+                if (isMobile()) {
+                    navMenu.classList.remove('nav-menu-active');
+                    navToggle.classList.remove('nav-toggle-active');
+                    navOverlay.classList.remove('nav-overlay-active');
+                    navMenu.style.transform = 'translateX(-100%)';
+                    // 恢复页面滚动
+                    document.body.classList.remove('menu-open');
+                    document.documentElement.classList.remove('menu-open');
+                }
+            }
+
+            // 将菜单在移动端提到 body 直下，避免任何父级层叠上下文/裁剪影响层级
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                    navOriginalContainer.appendChild(navMenu);
+                }
+            }
+            promoteMenuForMobile();
+            
+            // 添加事件监听器
+            if (navToggle) {
+                navToggle.addEventListener('click', toggleMenu);
+            }
+            
+            if (navOverlay) {
+                navOverlay.addEventListener('click', closeMenu);
+            }
+            
+            // 移动端可靠导航
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                let startX = 0, startY = 0, startT = 0;
+                const threshold = 8;
+                function onStart(e){ if(!isMobile()) return; const t=e.touches?e.touches[0]:e; startX=t.clientX; startY=t.clientY; startT=Date.now(); }
+                function onEnd(e){ if(!isMobile()) return; const t=e.changedTouches?e.changedTouches[0]:e; const dx=Math.abs(t.clientX-startX); const dy=Math.abs(t.clientY-startY); const dt=Date.now()-startT; if(dx<threshold&&dy<threshold&&dt<1500){ const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); } } }
+                link.addEventListener('touchstart', onStart, {passive:true, capture:true});
+                link.addEventListener('touchend', onEnd, {passive:false, capture:true});
+                link.addEventListener('mousedown', onStart, true);
+                link.addEventListener('mouseup', onEnd, true);
+                link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
+            });
+            
+            // 窗口大小改变时关闭菜单
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    closeMenu();
+                }
+                promoteMenuForMobile();
+            });
+            
+            // 添加滚动监听器确保菜单位置正确
+            window.addEventListener('scroll', function() {
+                if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
+                    // 菜单打开时，确保位置正确
+                    navMenu.style.top = '0';
+                }
+            });
+            
+            console.log('Menu initialized with scroll listener');
+        });
+    </script>
+    <script src="watermark.js"></script>
+</body>
+</html>
+
