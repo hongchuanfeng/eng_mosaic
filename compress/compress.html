@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../css.css">
     <link rel="stylesheet" href="compress.css">
     <style>
-        /* 与 index.html 保持一致的导航栏与头部样式 */
+        /* Keep navigation bar and header styles consistent with index.html */
         .navbar { 
             background: rgba(255, 255, 255, 0.1) !important; 
             backdrop-filter: blur(10px) !important; 
@@ -32,14 +32,14 @@
         .header-div {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         }
-        /* 移动端抽屉菜单与 index 一致 */
+        /* Mobile drawer menu consistent with index */
         @media (max-width: 768px) {
-            /* 防止父级裁剪或创建层叠上下文导致菜单被截断 */
+            /* Prevent menu truncation due to parent clipping or stacking context */
             .header-div, .navbar, .nav-container { overflow: visible !important; }
             .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
             .header-div, .navbar, .nav-container { contain: unset !important; }
             .nav-toggle { display: inline-block; }
-            /* 强化汉堡按钮的可见性（三杠更清晰） */
+            /* Enhance hamburger button visibility (clearer three lines) */
             .nav-toggle { 
                 position: relative; z-index: 10002; 
                 display: inline-flex; align-items: center; justify-content: center; 
@@ -57,6 +57,9 @@
             .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
             .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
         }
+        /* Left-align nav links under #navMenu */
+        #navMenu { justify-content: flex-start !important; text-align: left; }
+        #navMenu .nav-link { justify-content: flex-start !important; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -72,32 +75,32 @@
                     <a href="../index.html" class="nav-link">Mosaic</a>
                     <a href="../crop/crop.html" class="nav-link">Crop</a>
                     <a href="../convert/convert.html" class="nav-link">Convert</a>
-                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon</a>
                     <a href="compress.html" class="nav-link">Compress</a>
-                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
-                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
-                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
-                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
-                    <a href="../text/text.html" class="nav-link">Text to Image</a>
-                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
-                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
-                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../blank/blank.html" class="nav-link">Black&White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add WMK</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove WMK</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid</a>
+                    <a href="../text/text.html" class="nav-link">Text2Img</a>
+                    <a href="../join/join.html" class="nav-link">Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
+                    <a href="../corner/corner.html" class="nav-link">RC</a>
                     <a href="../expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../old/old.html" class="nav-link">OPR</a>
                     <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
-                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                    <a href="../removebg/removebg.html" class="nav-link">BG Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">BG Changer</a>
                 </div>
             </div>
         </nav>
         <h1 class="header-title">Image Compressor</h1>
     </header>
 
-    <!-- 移动端菜单遮罩层 -->
+    <!-- Mobile menu overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
     <main class="main-container">
-        <!-- 文件上传区域 -->
+        <!-- File upload area -->
         <section class="upload-section">
             <div class="upload-area">
                 <label for="fileInput" class="file-label">
@@ -110,13 +113,13 @@
             </div>
         </section>
 
-        <!-- 压缩设置区域 -->
+        <!-- Compression settings area -->
         <section class="settings-section" id="settingsSection" style="display: none;">
             <div class="settings-container">
                 <h3>Compression settings</h3>
                 
                 <div class="settings-grid">
-                    <!-- 压缩模式选择 -->
+                    <!-- Compression mode selection -->
                     <div class="setting-group">
                         <label class="setting-label">Compression mode</label>
                         <div class="compression-modes">
@@ -138,7 +141,7 @@
                         </div>
                     </div>
 
-                    <!-- 质量设置 -->
+                    <!-- Quality settings -->
                     <div class="setting-group" id="qualityGroup">
                         <label class="setting-label">Compression quality</label>
                         <div class="quality-control">
@@ -153,7 +156,7 @@
                         </div>
                     </div>
 
-                    <!-- 文件大小设置 -->
+                    <!-- File size settings -->
                     <div class="setting-group" id="sizeGroup" style="display: none;">
                         <label class="setting-label">Target file size</label>
                         <div class="size-control">
@@ -171,14 +174,14 @@
                         </div>
                     </div>
 
-                    <!-- 尺寸调整 -->
+                    <!-- Size adjustment -->
                     <div class="setting-group">
                         <label class="setting-label">Resize</label>
                         <div class="size-options">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="resizeEnabled" />
                                 <span class="checkmark"></span>
-                                调整图片尺寸
+                                Adjust image size
                             </label>
                             <div class="resize-controls" id="resizeControls" style="display: none;">
                                 <div class="resize-mode">
@@ -213,7 +216,7 @@
                         </div>
                     </div>
 
-                    <!-- 输出格式 -->
+                    <!-- Output format -->
                     <div class="setting-group">
                         <label class="setting-label">Output format</label>
                         <select id="outputFormat" class="format-select">
@@ -224,7 +227,7 @@
                         </select>
                     </div>
 
-                    <!-- 高级选项 -->
+                    <!-- Advanced options -->
                     <div class="setting-group">
                         <label class="setting-label">Advanced options</label>
                         <div class="advanced-options">
@@ -255,17 +258,17 @@
             </div>
         </section>
 
-        <!-- 图片列表区域 -->
+        <!-- Image list area -->
         <section class="images-section" id="imagesSection" style="display: none;">
             <div class="images-container">
                 <h3>Image list</h3>
                 <div class="images-grid" id="imagesGrid">
-                    <!-- 图片项将动态添加到这里 -->
+                    <!-- Image items will be dynamically added here -->
                 </div>
             </div>
         </section>
 
-        <!-- 进度区域 -->
+        <!-- Progress area -->
         <section class="progress-section" id="progressSection" style="display: none;">
             <div class="progress-container">
                 <h3>Compression progress</h3>
@@ -290,7 +293,7 @@
             </div>
         </section>
 
-        <!-- 结果区域 -->
+        <!-- Results area -->
         <section class="results-section" id="resultsSection" style="display: none;">
             <div class="results-container">
                 <h3>Compression results</h3>
@@ -299,25 +302,25 @@
                     <button id="downloadZipBtn" class="btn btn-info">Download ZIP</button>
                 </div>
                 <div class="results-grid" id="resultsGrid">
-                    <!-- 压缩结果将显示在这里 -->
+                    <!-- Compression results will be displayed here -->
                 </div>
             </div>
         </section>
 
-        <!-- 使用说明 -->
+        <!-- Instructions -->
         <section class="instructions-section">
             <div class="instructions-container">
                 <h3>Instructions</h3>
                 <div class="instructions-content">
                     <div class="instruction-item">
                         <h4>🎯 Compression modes</h4>
-                        <p><strong>质量优先：</strong>保持图片质量，适度压缩文件大小</p>
-                        <p><strong>文件大小优先：</strong>优先减小文件大小，可能影响图片质量</p>
-                        <p><strong>自定义设置：</strong>手动调节压缩参数，精确控制效果</p>
+                        <p><strong>Quality first:</strong> Maintain image quality while moderately reducing file size</p>
+                        <p><strong>Size first:</strong> Prioritize reducing file size, may affect image quality</p>
+                        <p><strong>Custom settings:</strong> Manually adjust compression parameters for precise control</p>
                     </div>
                     <div class="instruction-item">
                         <h4>📏 Resize</h4>
-                        <p>通过调整图片尺寸可以显著减小文件大小，建议根据使用场景选择合适的尺寸</p>
+                        <p>Adjusting image dimensions can significantly reduce file size. Choose appropriate dimensions based on your use case</p>
                     </div>
                     <div class="instruction-item">
                         <h4>💡 Optimization tips</h4>
@@ -332,14 +335,14 @@
     </main>
 
     <script>
-        // 导航菜单切换功能
+        // Navigation menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
             const navOverlay = document.getElementById('navOverlay');
             const navOriginalContainer = navMenu ? navMenu.parentElement : null;
             
-            // 检查是否为移动端
+            // Check if mobile device
             function isMobile() {
                 return window.innerWidth <= 768;
             }
@@ -351,21 +354,21 @@
                     navToggle.classList.toggle('nav-toggle-active');
                     navOverlay.classList.toggle('nav-overlay-active');
                     
-                    // 确保菜单显示时移除隐藏的transform
+                    // Ensure menu is visible by removing hidden transform
                     if (navMenu.classList.contains('nav-menu-active')) {
                         navMenu.style.transform = 'translateX(0)';
-                        // 禁用页面滚动
+                        // Disable page scrolling
                         document.body.classList.add('menu-open');
                         document.documentElement.classList.add('menu-open');
                         
-                        // 强制设置菜单滚动属性
+                        // Force set menu scroll properties
                         navMenu.style.overflowY = 'scroll';
                         navMenu.style.overflowX = 'hidden';
                         navMenu.style.height = '100vh';
                         navMenu.style.touchAction = 'pan-y';
                         navMenu.style.webkitOverflowScrolling = 'touch';
                         
-                        // 诊断：统计子项高度总和
+                        // Diagnostics: calculate total height of child items
                         const links = navMenu.querySelectorAll('.nav-link');
                         let totalItemsHeight = 0;
                         links.forEach(el => { totalItemsHeight += el.offsetHeight; });
@@ -373,7 +376,7 @@
                         console.log('Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight, 'Items sum:', totalItemsHeight, 'Count:', links.length);
                         console.log('Menu computed overflow-y:', getComputedStyle(navMenu).overflowY);
 
-                        // 强制添加spacer确保可滚动
+                        // Force add spacer to ensure scrollability
                         let spacer = document.getElementById('__nav_spacer__');
                         if (spacer && spacer.parentElement === navMenu) {
                             navMenu.removeChild(spacer);
@@ -388,10 +391,10 @@
                         spacer.style.flexShrink = '0';
                         navMenu.appendChild(spacer);
                         
-                        // 强制重新计算布局
+                        // Force recalculate layout
                         navMenu.offsetHeight;
                         
-                        // 再次输出高度以验证
+                        // Output height again for verification
                         setTimeout(function(){
                             console.log('After spacer -> Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight);
                             console.log('Spacer height:', spacer.offsetHeight);
@@ -400,10 +403,10 @@
                         }, 50);
                     } else {
                         navMenu.style.transform = 'translateX(-100%)';
-                        // 恢复页面滚动
+                        // Restore page scrolling
                         document.body.classList.remove('menu-open');
                         document.documentElement.classList.remove('menu-open');
-                        // 清理占位
+                        // Clean up placeholder
                         const spacer = document.getElementById('__nav_spacer__');
                         if (spacer && spacer.parentElement === navMenu) {
                             navMenu.removeChild(spacer);
@@ -420,13 +423,13 @@
                     navToggle.classList.remove('nav-toggle-active');
                     navOverlay.classList.remove('nav-overlay-active');
                     navMenu.style.transform = 'translateX(-100%)';
-                    // 恢复页面滚动
+                    // Restore page scrolling
                     document.body.classList.remove('menu-open');
                     document.documentElement.classList.remove('menu-open');
                 }
             }
 
-            // 将菜单在移动端提到 body 直下，避免任何父级层叠上下文/裁剪影响层级
+            // Move menu to body directly on mobile to avoid parent stacking context/clipping affecting z-index
             function promoteMenuForMobile(){
                 if (!navMenu) return;
                 if (isMobile()) {
@@ -439,7 +442,7 @@
             }
             promoteMenuForMobile();
             
-            // 添加事件监听器
+            // Add event listeners
             if (navToggle) {
                 navToggle.addEventListener('click', toggleMenu);
             }
@@ -448,7 +451,7 @@
                 navOverlay.addEventListener('click', closeMenu);
             }
             
-            // 移动端可靠导航
+            // Reliable mobile navigation
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 let startX = 0, startY = 0, startT = 0;
@@ -462,7 +465,7 @@
                 link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
             });
             
-            // 窗口大小改变时关闭菜单
+            // Close menu when window size changes
             window.addEventListener('resize', function() {
                 if (!isMobile()) {
                     closeMenu();
@@ -470,10 +473,10 @@
                 promoteMenuForMobile();
             });
             
-            // 添加滚动监听器确保菜单位置正确
+            // Add scroll listener to ensure menu position is correct
             window.addEventListener('scroll', function() {
                 if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
-                    // 菜单打开时，确保位置正确
+                    // When menu is open, ensure position is correct
                     navMenu.style.top = '0';
                 }
             });

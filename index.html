@@ -54,7 +54,7 @@
             .header-div, .navbar, .nav-container { contain: unset !important; }
             .nav-toggle { display: inline-block; }
             .nav-menu {
-                position: fixed; top: 0; bottom: 0; left: 0; width: 78%; max-width: 360px;
+                position: fixed; top: 0; bottom: 0; left: 0; width: 85%; max-width: 420px;
                 background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,.12);
                 display: block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y: auto; -webkit-overflow-scrolling: touch;
                 transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; will-change: transform;
@@ -72,6 +72,14 @@
             /* 移动端上下间隙（PC 端不生效） */
             .nav-menu .nav-link { margin: 10px 0; }
         }
+
+        /* Normalize action buttons height and appearance */
+        .file-label, #removeMosaicBtn {
+            display: inline-flex; align-items: center; justify-content: center;
+            height: 44px; padding: 0 20px; line-height: 1; box-sizing: border-box;
+            border: none; appearance: none; -webkit-appearance: none; cursor: pointer;
+            border-radius: 8px;
+        }
     </style>
 
 </head>
@@ -87,21 +95,21 @@
                 <div class="nav-menu" id="navMenu">
                     <a href="crop/crop.html" class="nav-link">Crop</a>
                     <a href="convert/convert.html" class="nav-link">Convert</a>
-                    <a href="icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="icon/icon.html" class="nav-link">Icon</a>
                     <a href="compress/compress.html" class="nav-link">Compress</a>
-                    <a href="blank/blank.html" class="nav-link">Color to Black &amp; White</a>
-                    <a href="watermark/watermark.html" class="nav-link">Add Watermark</a>
-                    <a href="removewm/removewm.html" class="nav-link">Remove Watermark</a>
-                    <a href="nine/nine.html" class="nav-link">3x3 Grid Split</a>
-                    <a href="text/text.html" class="nav-link">Text to Image</a>
-                    <a href="join/join.html" class="nav-link">Image Stitching</a>
-                    <a href="textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
-                    <a href="corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="blank/blank.html" class="nav-link">B&W</a>
+                    <a href="watermark/watermark.html" class="nav-link">Add WMK‌</a>
+                    <a href="removewm/removewm.html" class="nav-link">Remove WMK‌</a>
+                    <a href="nine/nine.html" class="nav-link">3x3 Grid</a>
+                    <a href="text/text.html" class="nav-link">Text2Img</a>
+                    <a href="join/join.html" class="nav-link">Stitching</a>
+                    <a href="textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
+                    <a href="corner/corner.html" class="nav-link">RC</a>
                     <a href="expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="old/old.html" class="nav-link">OPR‌</a>
                     <a href="bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="removebg/removebg.html" class="nav-link">Background Remover</a>
-                    <a href="changebg/changebg.html" class="nav-link">Background Changer</a>
+                    <a href="removebg/removebg.html" class="nav-link">Remover BG</a>
+                    <a href="changebg/changebg.html" class="nav-link">BG Changer</a>
                 </div>
             </div>
         </nav>
@@ -116,6 +124,7 @@
             <div class="frame-top">
                 <label for="fileBtn" class="file-label">Choose Image</label>
                 <input type="file" id="fileBtn" accept="image/jpeg,image/gif,image/png,image/bmp,image/webp" />
+                <button type="button" id="removeMosaicBtn" class="file-label" style="margin-left:8px;">Remove Mosaic</button>
             </div>
             <div class="frame-center" id="leftFrameCenter" style="position:relative">
                 <img id="img" alt="Original image" style="display:none"/>
@@ -272,7 +281,7 @@
                     navMenu.style.position = 'fixed';
                     navMenu.style.top = '0';
                     navMenu.style.left = '0';
-                    navMenu.style.width = '320px';
+                    navMenu.style.width = '380px';
                     navMenu.style.height = '100vh';
                     navMenu.style.background = '#ffffff';
                     navMenu.style.flexDirection = 'column';
@@ -456,6 +465,52 @@
                 alert("请先上传图片");
             }
         });
+
+        // Remove mosaic processing
+        (function(){
+            function createDeMosaicPic(img){
+                if(!img || !img.naturalWidth) return null;
+                var srcW = img.naturalWidth, srcH = img.naturalHeight;
+                var scale = 3; // upscale factor to smooth pixel blocks
+                // upscale with smoothing
+                var up = document.createElement('canvas');
+                up.width = srcW * scale; up.height = srcH * scale;
+                var uctx = up.getContext('2d');
+                uctx.imageSmoothingEnabled = true;
+                uctx.imageSmoothingQuality = 'high';
+                uctx.drawImage(img, 0, 0, up.width, up.height);
+                // downscale back with smoothing
+                var down = document.createElement('canvas');
+                down.width = srcW; down.height = srcH;
+                var dctx = down.getContext('2d');
+                dctx.imageSmoothingEnabled = true;
+                dctx.imageSmoothingQuality = 'high';
+                dctx.drawImage(up, 0, 0, down.width, down.height);
+                return down.toDataURL();
+            }
+
+            var removeBtn = document.getElementById('removeMosaicBtn');
+            if(removeBtn){
+                removeBtn.addEventListener('click', function(){
+                    var img = document.getElementById('img');
+                    var convertImg = document.getElementById('convertImg');
+                    if(!img || !img.src){
+                        alert('Please upload an image first');
+                        return;
+                    }
+                    var result = createDeMosaicPic(img);
+                    if(result){
+                        convertImg.src = result;
+                        convertImg.style.display = 'block';
+                        // match display size with the left image
+                        convertImg.style.width = img.style.width || (img.offsetWidth + 'px');
+                        convertImg.style.height = img.style.height || (img.offsetHeight + 'px');
+                        var resultPlaceholder = convertImg.parentElement.querySelector('.placeholder-text');
+                        if(resultPlaceholder){ resultPlaceholder.style.display = 'none'; }
+                    }
+                });
+            }
+        })();
 
         function showConvertPic(){
             var img = document.getElementById("img");

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="../css.css">
     <link rel="stylesheet" href="text.css">
     <style>
-        /* 与 index.html 保持一致的导航栏与头部样式 */
+        /* Keep navigation bar and header styles consistent with index.html */
         .navbar { 
             background: rgba(255, 255, 255, 0.1) !important; 
             backdrop-filter: blur(10px) !important; 
@@ -32,7 +32,7 @@
         .header-div {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         }
-        /* 移动端抽屉菜单与 index 一致 */
+        /* Mobile drawer menu consistent with index */
         @media (max-width: 768px) {
             .header-div, .navbar, .nav-container { overflow: visible !important; }
             .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
@@ -55,6 +55,9 @@
             .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
             .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
         }
+        /* Left-align nav links under #navMenu */
+        #navMenu { justify-content: flex-start !important; text-align: left; }
+        #navMenu .nav-link { justify-content: flex-start !important; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -70,32 +73,32 @@
                     <a href="../index.html" class="nav-link">Mosaic</a>
                     <a href="../crop/crop.html" class="nav-link">Crop</a>
                     <a href="../convert/convert.html" class="nav-link">Convert</a>
-                    <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                    <a href="../icon/icon.html" class="nav-link">Icon</a>
                     <a href="../compress/compress.html" class="nav-link">Compress</a>
-                    <a href="../blank/blank.html" class="nav-link">Color to Black &amp; White</a>
-                    <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
-                    <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
-                    <a href="../nine/nine.html" class="nav-link">3x3 Grid Split</a>
-                    <a href="text.html" class="nav-link">Text to Image</a>
-                    <a href="../join/join.html" class="nav-link">Image Stitching</a>
-                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text to Image</a>
-                    <a href="../corner/corner.html" class="nav-link">Rounded Corners</a>
+                    <a href="../blank/blank.html" class="nav-link">Black&White</a>
+                    <a href="../watermark/watermark.html" class="nav-link">Add WMK</a>
+                    <a href="../removewm/removewm.html" class="nav-link">Remove WMK</a>
+                    <a href="../nine/nine.html" class="nav-link">3x3 Grid</a>
+                    <a href="text.html" class="nav-link">Text2Img</a>
+                    <a href="../join/join.html" class="nav-link">Stitching</a>
+                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
+                    <a href="../corner/corner.html" class="nav-link">RC</a>
                     <a href="../expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="../old/old.html" class="nav-link">Old Photo Restoration</a>
+                    <a href="../old/old.html" class="nav-link">OPR</a>
                     <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="../removebg/removebg.html" class="nav-link">Background Remover</a>
-                    <a href="../changebg/changebg.html" class="nav-link">Background Changer</a>
+                    <a href="../removebg/removebg.html" class="nav-link">BG Remover</a>
+                    <a href="../changebg/changebg.html" class="nav-link">BG Changer</a>
                 </div>
             </div>
         </nav>
         <h1 class="header-title">Text to Image</h1>
     </header>
 
-    <!-- 移动端菜单遮罩层 -->
+    <!-- Mobile menu overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
     <main class="main-container">
-        <!-- 文字输入区域 -->
+        <!-- Text input area -->
         <section class="input-section">
             <div class="input-container">
                 <h3>Text Settings</h3>
@@ -105,7 +108,7 @@
                 </div>
                 
                 <div class="settings-grid">
-                    <!-- 字体设置 -->
+                    <!-- Font settings -->
                     <div class="setting-group">
                         <label class="setting-label">Font Settings</label>
                         <div class="font-controls">
@@ -132,16 +135,16 @@
                             <div class="font-weight-group">
                                 <label>Font Weight</label>
                                 <select id="fontWeight" class="font-select">
-                                    <option value="normal">正常</option>
-                                    <option value="bold">粗体</option>
-                                    <option value="lighter">细体</option>
-                                    <option value="bolder">特粗</option>
+                                    <option value="normal">Normal</option>
+                                    <option value="bold">Bold</option>
+                                    <option value="lighter">Light</option>
+                                    <option value="bolder">Extra Bold</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 颜色设置 -->
+                    <!-- Color settings -->
                     <div class="setting-group">
                         <label class="setting-label">Color Settings</label>
                         <div class="color-controls">
@@ -162,16 +165,16 @@
                         </div>
                     </div>
 
-                    <!-- 布局设置 -->
+                    <!-- Layout settings -->
                     <div class="setting-group">
                         <label class="setting-label">Layout Settings</label>
                         <div class="layout-controls">
                             <div class="canvas-size-group">
                                 <label>Canvas Size</label>
                                 <div class="size-inputs">
-                                    <input type="number" id="canvasWidth" min="100" max="2000" value="800" placeholder="宽度" />
+                                    <input type="number" id="canvasWidth" min="100" max="2000" value="800" placeholder="Width" />
                                     <span>×</span>
-                                    <input type="number" id="canvasHeight" min="100" max="2000" value="400" placeholder="高度" />
+                                    <input type="number" id="canvasHeight" min="100" max="2000" value="400" placeholder="Height" />
                                 </div>
                             </div>
                             <div class="text-align-group">
@@ -190,7 +193,7 @@
                         </div>
                     </div>
 
-                    <!-- 效果设置 -->
+                    <!-- Effect settings -->
                     <div class="setting-group">
                         <label class="setting-label">Effect Settings</label>
                         <div class="effect-controls">
@@ -221,7 +224,7 @@
             </div>
         </section>
 
-        <!-- 预览区域 -->
+        <!-- Preview area -->
         <section class="preview-section" id="previewSection" style="display: none;">
             <div class="preview-container">
                 <h3>Preview</h3>
@@ -236,7 +239,7 @@
             </div>
         </section>
 
-        <!-- 使用说明 -->
+        <!-- Instructions -->
         <section class="instructions-section">
             <div class="instructions-container">
                 <h3>How to Use</h3>
@@ -263,7 +266,7 @@
     </main>
 
     <script>
-        // 导航菜单切换功能（修复遮罩层问题：点击按钮时按钮在遮罩之上）
+        // Navigation menu toggle functionality (fix overlay issue: button stays above overlay when clicked)
         document.addEventListener('DOMContentLoaded', function() {
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
@@ -274,7 +277,7 @@
             
             function toggleMenu() {
                 if (!isMobile()) return;
-                // 确保按钮层级高于遮罩
+                // Ensure button z-index is higher than overlay
                 if (navToggle) navToggle.style.zIndex = '10002';
                 navMenu.classList.toggle('nav-menu-active');
                 navToggle.classList.toggle('nav-toggle-active');
