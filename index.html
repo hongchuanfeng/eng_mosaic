@@ -46,6 +46,36 @@
             .header-div, .main-div, .navbar, .nav-container { max-width: none; }
         }
 
+        /* Language switch (CN) */
+        .lang-switch {
+            position: relative; z-index: 2;
+            text-decoration: none; user-select: none;
+            display: inline-flex; align-items: center;
+            height: 36px; border-radius: 18px; overflow: hidden;
+            background: linear-gradient(135deg, #6d66ff 0%, #7b6cff 50%, #8a6bff 100%);
+            box-shadow: 0 8px 22px rgba(109,102,255,.35);
+            color: #fff; margin-left: 12px;
+        }
+        .lang-switch .ls-left {
+            display: inline-flex; align-items: center; padding: 0 14px; gap: 10px;
+            background: radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.16) 0%, rgba(255,255,255,.06) 60%, rgba(255,255,255,0) 100%);
+            height: 100%;
+        }
+        .lang-switch .badge {
+            background: rgba(255,255,255,.25);
+            padding: 4px 8px; border-radius: 8px; font-weight: 700; letter-spacing: .5px; font-size: 10px;
+        }
+        .lang-switch .divider { width: 1px; height: 18px; background: rgba(255,255,255,.7); }
+        .lang-switch .label { font-size: 10px; font-weight: 600; }
+        .lang-switch .ls-right { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 100%; background: rgba(0,0,0,.14); }
+        .lang-switch .arrow { display: inline-block; width: 8px; height: 8px; border-right: 2px solid #fff; border-top: 2px solid #fff; transform: rotate(45deg); }
+        .lang-switch:hover { filter: brightness(1.06); }
+        .lang-switch:active { transform: translateY(1px); }
+        @media (max-width: 768px) {
+            /* Keep switch visible above the slide-out drawer */
+            .lang-switch { position: fixed; right: 12px; top: 5px; height: 34px; z-index: 10002; }
+        }
+
         /* 移动端抽屉菜单 */
         @media (max-width: 768px) {
             /* 避免父级裁剪或创建新定位上下文导致抽屉被截断 */
@@ -111,6 +141,14 @@
                     <a href="removebg/removebg.html" class="nav-link">Remover BG</a>
                     <a href="changebg/changebg.html" class="nav-link">BG Changer</a>
                 </div>
+                <a class="lang-switch" href="https://mosaic.openai2025.com/" rel="nofollow" aria-label="Switch to Chinese version">
+                    <span class="ls-left">
+                        <span class="badge">CN</span>
+                        <span class="divider"></span>
+                        <span class="label">中文</span>
+                    </span>
+                    <span class="ls-right"><i class="arrow"></i></span>
+                </a>
             </div>
         </nav>
         <h1 class="header-title">Image Mosaic</h1>
