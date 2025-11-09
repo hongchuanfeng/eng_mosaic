@@ -4,60 +4,323 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="favicon" rel="icon" type="image/png" href="../favicon.ico">
     <title>Online free image mosaic - Change Image Background</title>
     <meta name="keywords" content="change image background,background replacement,background color,image edit,online background changer" />
     <meta name="description" content="Free online background changer. Detect background and replace with colors, gradients or patterns, with manual tools." />
     <link rel="canonical" href="https://mosaic.chdaoai.com/changebg/changebg.html">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB0W88E8NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        gtag('config', 'G-V0YFLKRH7D');
-    </script>
+  gtag('config', 'G-CB0W88E8NY');
+</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css.css">
     <link rel="stylesheet" href="changebg.css">
     <style>
-        /* Navbar background style consistent with index.html (higher priority and WebKit compatible) */
-        .navbar {
-            background: rgba(255, 255, 255, 0.1) !important;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        body { min-height: 120vh; }
+        body { background-color: transparent; }
+        .navbar { position: relative; z-index: auto; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-menu { display: flex; flex-wrap: wrap; gap: 8px; }
+        .nav-link { padding: 0; display: inline-flex; align-items: center; }
+        .nav-toggle { display: none; background: transparent; border: none; padding: 8px; cursor: pointer; }
+        .hamburger { display: block; width: 22px; height: 2px; background: rgba(255, 255, 255, 0.9); margin: 5px 0; transition: transform .25s ease, opacity .25s ease; }
+        .nav-overlay { display: none; }
+
+        @media (min-width: 769px) {
+            .nav-link { padding: 5px 12px; }
+            .nav-menu { gap: 8px; }
+            .nav-item { display: inline-block; }
         }
-        /* Header background identical to index.html */
-        .header-div {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+
+        @media (min-width: 1025px) {
+            html, body { min-width: 1600px; }
+            .header-div, .main-div, .navbar, .nav-container { max-width: none; }
         }
-        /* Mobile drawer menu consistent with index, avoiding parent cropping/cascading effects */
+
+        .lang-switch {
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.95);
+            margin-left: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            font-weight: 500;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .lang-switch .ls-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lang-switch .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .lang-switch .divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lang-switch .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .lang-switch .ls-right {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+        .lang-switch .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+        }
+        .lang-switch:hover .arrow {
+            transform: translateY(2px);
+        }
+        @media (max-width: 768px) {
+            .lang-switch {
+                position: fixed;
+                right: 12px;
+                height: 38px;
+                padding: 0 14px;
+                z-index: 10002;
+                font-size: 13px;
+            }
+            .lang-switch .badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+            .lang-switch .label {
+                font-size: 12px;
+            }
+        }
+
+        .nav-item { 
+            position: relative; 
+            display: inline-block;
+        }
+        .dropdown-toggle { 
+            cursor: pointer; 
+            user-select: none;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            min-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 1000;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            pointer-events: none;
+            overflow: visible;
+            max-height: none;
+            height: auto;
+        }
+        .nav-item:hover .dropdown-menu,
+        .nav-item.dropdown-open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .dropdown-menu .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dropdown-menu .nav-link:hover {
+            background: #f5f5f5;
+            color: #007bff;
+        }
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dropdown-menu {
+                min-width: 480px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .dropdown-menu {
+                min-width: 600px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .dropdown-toggle::before,
+        .nav-link[href="../about.html"]::before,
+        .nav-link[href="../contact.html"]::before {
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .dropdown-toggle::before {
+            content: "🤖";
+        }
+        .nav-link[href="../about.html"]::before {
+            content: "ℹ️";
+        }
+        .nav-link[href="../contact.html"]::before {
+            content: "📧";
+        }
+        
+        @media (min-width: 769px) {
+            .nav-item .dropdown-toggle {
+                color: rgba(255, 255, 255, 0.9);
+                background-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 8px 16px;
+                display: inline-block;
+                font-weight: 500;
+            }
+            .nav-item:hover .dropdown-toggle {
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #fff;
+            }
+        }
+
         @media (max-width: 768px) {
             .header-div, .navbar, .nav-container { overflow: visible !important; }
             .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
             .header-div, .navbar, .nav-container { contain: unset !important; }
             .nav-toggle { display: inline-block; }
-            .nav-toggle { 
-                display: inline-flex; align-items: center; justify-content: center; 
-                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
-                background: rgba(255,255,255,.55); border-radius: 8px; 
-                box-shadow: 0 1px 3px rgba(0,0,0,.2); position: relative; z-index: 10002;
+            .nav-menu {
+                position: fixed; top: 0; bottom: 0; left: 0; width: 85%; max-width: 420px;
+                background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,.12);
+                display: block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+                transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; will-change: transform;
             }
-            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
-            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu .nav-link { display: flex; align-items: center; padding: 0; border-bottom: 1px solid #f2f2f2; }
             .nav-menu.nav-menu-active { transform: translateX(0); }
-            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
-            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
-            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:0;} 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
+
+            .nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 10000; display: block; }
+            .nav-overlay.nav-overlay-active { opacity: 1; pointer-events: auto; }
+
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2) { opacity: 0; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            .nav-menu .nav-link { margin: 10px 0; }
+            
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            .dropdown-toggle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 16px 20px;
+                color: #333;
+                background: white;
+                border: none;
+                text-align: left;
+                font-size: 1rem;
+                font-weight: 500;
+                margin: 0;
+            }
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                transform: none;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                transition: opacity 0.3s ease, max-height 0.3s ease;
+                border-radius: 0;
+                display: block !important;
+                grid-template-columns: 1fr !important;
+                min-width: auto !important;
+            }
+            .nav-item.dropdown-open .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 2000px;
+            }
+            .dropdown-menu .nav-link {
+                padding: 12px 20px 12px 40px;
+                font-size: 14px;
+                border-bottom: 1px solid #e9ecef;
+                color: #333;
+                text-align: left;
+            }
+            .dropdown-menu .nav-link:hover {
+                background: #e9ecef;
+            }
+            
+            .dropdown-toggle::before,
+            .nav-link[href="../about.html"]::before,
+            .nav-link[href="../contact.html"]::before {
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 18px;
+            }
         }
-        /* Left-align nav links under #navMenu */
-        #navMenu { justify-content: flex-start !important; text-align: left; }
-        #navMenu .nav-link { justify-content: flex-start !important; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -70,31 +333,46 @@
                     <span class="hamburger"></span>
                 </button>
                 <div class="nav-menu" id="navMenu">
-                    <a href="../index.html" class="nav-link">Mosaic</a>
-                    <a href="../crop/crop.html" class="nav-link">Crop</a>
-                    <a href="../convert/convert.html" class="nav-link">Convert</a>
-                    <a href="../icon/icon.html" class="nav-link">Icon</a>
-                    <a href="../compress/compress.html" class="nav-link">Compress</a>
-                    <a href="../blank/blank.html" class="nav-link">B&W</a>
-                    <a href="../watermark/watermark.html" class="nav-link">Add WMK</a>
-                    <a href="../removewm/removewm.html" class="nav-link">Remove WMK</a>
-                    <a href="../nine/nine.html" class="nav-link">3x3 Grid</a>
-                    <a href="../text/text.html" class="nav-link">Text2Img</a>
-                    <a href="../join/join.html" class="nav-link">Stitching</a>
-                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
-                    <a href="../corner/corner.html" class="nav-link">RC</a>
-                    <a href="../expand/expand.html" class="nav-link">Expand</a>
-                    <a href="../old/old.html" class="nav-link">OPR</a>
-                    <a href="../bg/bg.html" class="nav-link">B&W Colorize</a>
-                    <a href="../removebg/removebg.html" class="nav-link">BG Remove</a>
-                    <a href="changebg.html" class="nav-link">BG Change</a>
+                    <div class="nav-item">
+                        <span class="nav-link dropdown-toggle">Image AI tool</span>
+                        <div class="dropdown-menu">
+                            <a href="../index.html" class="nav-link">Image Mosaic</a>
+                            <a href="../crop/crop.html" class="nav-link">Crop Image</a>
+                            <a href="../convert/convert.html" class="nav-link">Format Convert</a>
+                            <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                            <a href="../compress/compress.html" class="nav-link">Compress Image</a>
+                            <a href="../blank/blank.html" class="nav-link">Grayscale</a>
+                            <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                            <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                            <a href="../nine/nine.html" class="nav-link">Image Grid</a>
+                            <a href="../text/text.html" class="nav-link">Text to Image</a>
+                            <a href="../join/join.html" class="nav-link">Merge Images</a>
+                            <a href="../textToimage/textToimage.html" class="nav-link">Add Text</a>
+                            <a href="../corner/corner.html" class="nav-link">Round Corners</a>
+                            <a href="../expand/expand.html" class="nav-link">Upscale Image</a>
+                            <a href="../old/old.html" class="nav-link">Restore Photo</a>
+                            <a href="../bg/bg.html" class="nav-link">Colorize Image</a>
+                            <a href="../removebg/removebg.html" class="nav-link">Remove Background</a>
+                            <a href="changebg.html" class="nav-link">Change Background</a>
+                        </div>
+                    </div>
+                    <a href="../about.html" class="nav-link">About</a>
+                    <a href="../contact.html" class="nav-link">Contact</a>
                 </div>
+                <a class="lang-switch" href="https://mosaic.openai2025.com/changebg/changebg.html" rel="nofollow" aria-label="Switch to Chinese version">
+                    <span class="ls-left">
+                        <span class="badge">CN</span>
+                        <span class="divider"></span>
+                        <span class="label">中文</span>
+                    </span>
+                    <span class="ls-right"><i class="arrow"></i></span>
+                </a>
             </div>
         </nav>
         <h1 class="header-title">Background Changer</h1>
     </header>
 
-    <!-- Mobile Menu Overlay -->
+    <!-- Mobile menu overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
     <main class="main-container">
@@ -372,93 +650,375 @@
             </div>
         </section>
 
-        <!-- Usage Instructions -->
-        <section class="instructions-section">
-            <div class="instructions-container">
-                <h3>Usage Instructions</h3>
-                <div class="instructions-content">
-                    <div class="instruction-item">
-                        <h4>🎨 Solid Background</h4>
-                        <p>Replace image background with a single color, suitable for ID photos, product images, etc.</p>
-                    </div>
-                    <div class="instruction-item">
-                        <h4>🌈 Gradient Background</h4>
-                        <p>Create beautiful gradient background effects, supporting linear, radial, and conic gradients.</p>
-                    </div>
-                    <div class="instruction-item">
-                        <h4>🔷 Pattern Background</h4>
-                        <p>Add various pattern backgrounds, including dots, lines, grids, and other decorative effects.</p>
-                    </div>
-                    <div class="instruction-item">
-                        <h4>⚙️ Smart Detection</h4>
-                        <p>Automatically identify background areas, supporting manual selection and color selection modes.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <script>
-        // Unified mobile navigation logic
+    <!-- Feature description and usage guide section -->
+    <section class="info-section">
+        <div class="info-container">
+            <!-- Feature description -->
+            <div class="info-card">
+                <h2>📋 Feature Description</h2>
+                <p>Our Background Changer tool provides powerful AI-powered capabilities to change backgrounds in your images:</p>
+                <ul>
+                    <li><strong>Multiple Background Types:</strong> Support solid color, gradient, and pattern backgrounds</li>
+                    <li><strong>Smart Detection:</strong> Automatically identify background areas for precise replacement</li>
+                    <li><strong>Gradient Options:</strong> Create beautiful gradient backgrounds with linear, radial, or conic gradients</li>
+                    <li><strong>Pattern Library:</strong> Add various pattern backgrounds including dots, lines, grids, waves, and stars</li>
+                    <li><strong>Advanced Features:</strong> Preserve shadows, smooth edges, enhance contrast, smart detection, and preview mode</li>
+                </ul>
+            </div>
+
+            <!-- Usage guide -->
+            <div class="info-card">
+                <h2>💡 Usage Guide</h2>
+                <ol>
+                    <li>Click to select images or drag & drop them to upload (up to 5 images)</li>
+                    <li>Choose background type: Solid Color, Gradient, or Pattern</li>
+                    <li>For solid color: Select background color and adjust color intensity</li>
+                    <li>For gradient: Select start and end colors, choose gradient type (linear, radial, or conic), and adjust gradient angle</li>
+                    <li>For pattern: Choose pattern type (dots, lines, grid, waves, or stars), select pattern color, and adjust pattern size and density</li>
+                    <li>Select background detection mode: Auto Detect (recommended), Manual Selection, or Color Selection</li>
+                    <li>If using manual mode, choose selection mode (rectangle, circle, or brush) and adjust brush size and tolerance</li>
+                    <li>If using color selection mode, select color to replace and adjust color tolerance</li>
+                    <li>Enable advanced settings as needed: preserve shadows, smooth edges, enhance contrast, smart detection, preview mode</li>
+                    <li>Select output format: Keep Original Format, JPEG, PNG, or WebP</li>
+                    <li>Adjust output quality (60% to 100%)</li>
+                    <li>Click "Preview Effect" to see the background change effect</li>
+                    <li>Click "Process Now" to begin processing</li>
+                    <li>Download individual processed images or download all as a ZIP file</li>
+                </ol>
+            </div>
+
+            <!-- Use cases -->
+            <div class="info-card">
+                <h2>🎨 Use Cases</h2>
+                <div class="use-cases">
+                    <div class="use-case-item">
+                        <strong>ID Photos:</strong> Replace backgrounds with solid colors for professional ID photos and passport photos
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Product Photography:</strong> Change product backgrounds to gradients or patterns for e-commerce listings
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Portrait Editing:</strong> Replace portrait backgrounds with beautiful gradients or patterns for social media
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Creative Projects:</strong> Use pattern backgrounds to create unique artistic effects for creative projects</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video tutorial section -->
+    <section class="examples-section">
+        <div class="examples-container">
+            <h2>📹 Video Tutorial</h2>
+            <div class="examples-grid">
+                <div class="example-card example-video-card">
+                    <h3>How to Change Image Background</h3>
+                    <div class="example-video-wrapper">
+                        <video src="/static/image/changebg.mp4" controls class="example-video" poster="">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="example-description">
+                        <strong>Video Guide:</strong> Watch this tutorial video to learn how to use our Background Changer tool effectively. See step-by-step instructions for uploading images, selecting background types, adjusting settings, and downloading your processed images.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership plans section -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <h2>💎 Membership Plans</h2>
+            <div class="pricing-grid">
+                <!-- Monthly plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Monthly Plan</h3>
+                        <div class="price">$6.6<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited background changes</li>
+                        <li>✓ All background types</li>
+                        <li>✓ Batch processing (up to 10 images)</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Ad-free experience</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- Quarterly plan -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Best Value</div>
+                    <div class="pricing-header">
+                        <h3>Quarterly Plan</h3>
+                        <div class="price">$16.66<span>/3 months</span></div>
+                        <div class="price-save">Save 17%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Monthly</li>
+                        <li>✓ Unlimited batch processing</li>
+                        <li>✓ Advanced AI detection</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom background presets</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- Annual plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Annual Plan</h3>
+                        <div class="price">$56.66<span>/year</span></div>
+                        <div class="price-save">Save 33%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Quarterly</li>
+                        <li>✓ Unlimited storage</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ Early access to new features</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter subscription section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>📧 Subscribe to Our Newsletter</h2>
+            <p>Get access to usage guides, use cases, and exclusive membership offers</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email address" required class="newsletter-input">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+            <p class="newsletter-note">By subscribing, you'll receive usage guides, use cases, and membership information.</p>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Image Mosaic</a></li>
+                        <li><a href="../crop/crop.html">Crop Image</a></li>
+                        <li><a href="../convert/convert.html">Format Convert</a></li>
+                        <li><a href="../icon/icon.html">Icon Generator</a></li>
+                        <li><a href="changebg.html">Change Background</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Chuandao AI provides cutting-edge image processing tools to help you create, edit, and enhance your images with ease.</p>
+                    <a href="../about.html" class="footer-link">Learn More</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:support@chuandaoai.com">support@chuandaoai.com</a></p>
+                    <p>We're here to help with any questions or concerns.</p>
+                    <a href="../contact.html" class="footer-link">Get in Touch</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © Chuandao AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // Mobile menu toggle logic
         document.addEventListener('DOMContentLoaded', function() {
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
             const navOverlay = document.getElementById('navOverlay');
+            const navItem = document.querySelector('.nav-item'); // For dropdown
+            const dropdownToggle = document.querySelector('.dropdown-toggle'); // For dropdown
+            const dropdownMenu = document.querySelector('.dropdown-menu'); // For dropdown
             const navOriginalContainer = navMenu ? navMenu.parentElement : null;
-
-            function isMobile(){ return window.innerWidth <= 768; }
-
-            function toggleMenu(){
-                if (!isMobile()) return;
-                navMenu.classList.toggle('nav-menu-active');
-                navToggle.classList.toggle('nav-toggle-active');
-                navOverlay.classList.toggle('nav-overlay-active');
-                if (navMenu.classList.contains('nav-menu-active')){
-                    navMenu.style.transform = 'translateX(0)';
-                    document.body.classList.add('menu-open');
-                    document.documentElement.classList.add('menu-open');
+            
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            // Move menu to body directly on mobile to avoid parent stacking context/clipping affecting z-index
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                    // Ensure mobile menu has correct styles
+                    navMenu.style.display = 'flex';
+                    navMenu.style.position = 'fixed';
+                    navMenu.style.top = '0';
+                    navMenu.style.left = '0';
+                    navMenu.style.width = '380px';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.background = '#ffffff';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.justifyContent = 'flex-start';
+                    navMenu.style.alignItems = 'stretch';
+                    navMenu.style.padding = '0';
+                    navMenu.style.gap = '0';
+                    navMenu.style.zIndex = '10001';
+                    navMenu.style.boxShadow = '2px 0 10px rgba(0, 0, 0, 0.1)';
                     navMenu.style.overflowY = 'scroll';
                     navMenu.style.overflowX = 'hidden';
-                    navMenu.style.height = '100vh';
-                    navMenu.style.touchAction = 'pan-y';
                     navMenu.style.webkitOverflowScrolling = 'touch';
+                    navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.transition = 'transform .25s ease';
+                    
+                    // Keep menu's current display state, don't force hide
+                    if (!navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(-100%)';
+                    } else {
+                        navMenu.style.transform = 'translateX(0)';
+                    }
                 } else {
-                    navMenu.style.transform = 'translateX(-100%)';
+                    if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                        navOriginalContainer.appendChild(navMenu);
+                    }
+                    // Reset PC styles
+                    navMenu.style.display = '';
+                    navMenu.style.position = '';
+                    navMenu.style.top = '';
+                    navMenu.style.left = '';
+                    navMenu.style.width = '';
+                    navMenu.style.height = '';
+                    navMenu.style.background = '';
+                    navMenu.style.flexDirection = '';
+                    navMenu.style.justifyContent = '';
+                    navMenu.style.alignItems = '';
+                    navMenu.style.padding = '';
+                    navMenu.style.gap = '';
+                    navMenu.style.zIndex = '';
+                    navMenu.style.boxShadow = '';
+                    navMenu.style.overflowY = '';
+                    navMenu.style.overflowX = '';
+                    navMenu.style.webkitOverflowScrolling = '';
+                    navMenu.style.touchAction = '';
+                    navMenu.style.transition = '';
+                    navMenu.style.transform = '';
+                }
+            }
+            
+            // Call on initialization
+            promoteMenuForMobile();
+            
+            function toggleMenu() {
+                if (isMobile()) {
+                    navMenu.classList.toggle('nav-menu-active');
+                    navToggle.classList.toggle('nav-toggle-active');
+                    navOverlay.classList.toggle('nav-overlay-active');
+                    document.body.classList.toggle('menu-open');
+                    document.documentElement.classList.toggle('menu-open');
+                }
+            }
+            
+            function closeMenu() {
+                if (isMobile()) {
+                    navMenu.classList.remove('nav-menu-active');
+                    navToggle.classList.remove('nav-toggle-active');
+                    navOverlay.classList.remove('nav-overlay-active');
                     document.body.classList.remove('menu-open');
                     document.documentElement.classList.remove('menu-open');
                 }
             }
 
-            function closeMenu(){
-                if (!isMobile()) return;
-                navMenu.classList.remove('nav-menu-active');
-                navToggle.classList.remove('nav-toggle-active');
-                navOverlay.classList.remove('nav-overlay-active');
-                navMenu.style.transform = 'translateX(-100%)';
-                document.body.classList.remove('menu-open');
-                document.documentElement.classList.remove('menu-open');
+            if (navToggle) {
+                navToggle.addEventListener('click', toggleMenu);
             }
-
-            function promoteMenuForMobile(){
-                if (!navMenu) return;
-                if (isMobile()){
-                    if (navMenu.parentElement !== document.body) document.body.appendChild(navMenu);
-                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer){
-                    navOriginalContainer.appendChild(navMenu);
-                }
+            if (navOverlay) {
+                navOverlay.addEventListener('click', closeMenu);
             }
-            promoteMenuForMobile();
-
-            if (navToggle) navToggle.addEventListener('click', toggleMenu);
-            if (navOverlay) navOverlay.addEventListener('click', closeMenu);
-
+            
+            // Mobile reliable navigation
             const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => { link.addEventListener('click', function(){ if(isMobile()) closeMenu(); }); });
-
-            window.addEventListener('resize', function(){
-                if (!isMobile()) closeMenu();
+            navLinks.forEach(link => {
+                let startX = 0, startY = 0, startT = 0;
+                const threshold = 8;
+                function onStart(e){ if(!isMobile()) return; const t=e.touches?e.touches[0]:e; startX=t.clientX; startY=t.clientY; startT=Date.now(); }
+                function onEnd(e){ if(!isMobile()) return; const t=e.changedTouches?e.changedTouches[0]:e; const dx=Math.abs(t.clientX-startX); const dy=Math.abs(t.clientY-startY); const dt=Date.now()-startT; if(dx<threshold&&dy<threshold&&dt<1500){ const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); } } }
+                link.addEventListener('touchstart', onStart, {passive:true, capture:true});
+                link.addEventListener('touchend', onEnd, {passive:false, capture:true});
+                link.addEventListener('mousedown', onStart, true);
+                link.addEventListener('mouseup', onEnd, true);
+                link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
+            });
+            
+            // Close menu when window size changes
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    closeMenu();
+                }
                 promoteMenuForMobile();
             });
+            
+            // Add scroll listener to ensure menu position is correct
+            window.addEventListener('scroll', function() {
+                if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
+                    // When menu is open, ensure position is correct
+                    navMenu.style.top = '0';
+                }
+            });
+            
+            // PC dropdown logic
+            if (!isMobile() && navItem && dropdownToggle && dropdownMenu) {
+                let hideTimer = null;
+
+                function showDropdown() {
+                    if (hideTimer) {
+                        clearTimeout(hideTimer);
+                        hideTimer = null;
+                    }
+                    navItem.classList.add('dropdown-open');
+                }
+
+                function hideDropdown() {
+                    hideTimer = setTimeout(function() {
+                        navItem.classList.remove('dropdown-open');
+                    }, 200);
+                }
+
+                navItem.addEventListener('mouseenter', showDropdown);
+                dropdownMenu.addEventListener('mouseenter', showDropdown);
+                navItem.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && dropdownMenu.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+                dropdownMenu.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && navItem.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+            }
+            
+            // Mobile dropdown toggle
+            if (isMobile() && dropdownToggle) {
+                dropdownToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navItem.classList.toggle('dropdown-open');
+                });
+            }
         });
     </script>
     <script src="changebg.js"></script>

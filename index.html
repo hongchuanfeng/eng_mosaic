@@ -9,15 +9,15 @@
     <meta name="keywords" content="online free image mosaic, mosaic tool, pixelate image, mosaic editor, privacy blur, pixel art" />
     <meta name="description" content="Online free image mosaic tool to pixelate images, support full mosaic, rectangle area and brush, download in one click." />
     <link rel="canonical" href="https://mosaic.chdaoai.com/">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB0W88E8NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        gtag('config', 'G-V0YFLKRH7D');
-    </script>
+  gtag('config', 'G-CB0W88E8NY');
+</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css.css">
@@ -32,12 +32,18 @@
         .nav-link { padding: 0; display: inline-flex; align-items: center; }
         .nav-ico { display: inline-block; margin-right: 0; font-size: 16px; line-height: 1; }
         .nav-toggle { display: none; background: transparent; border: none; padding: 8px; cursor: pointer; }
-        .hamburger { display: block; width: 22px; height: 2px; background: #333; margin: 5px 0; transition: transform .25s ease, opacity .25s ease; }
+        .hamburger { display: block; width: 22px; height: 2px; background: rgba(255, 255, 255, 0.9); margin: 5px 0; transition: transform .25s ease, opacity .25s ease; }
         .nav-overlay { display: none; }
 
         /* PC端 nav-link 间距 */
         @media (min-width: 769px) {
-            .nav-link { padding: 5px 0; }
+            .nav-link { padding: 5px 12px; }
+            .nav-menu {
+                gap: 8px;
+            }
+            .nav-item {
+                display: inline-block;
+            }
         }
 
         /* 桌面端加宽版面，避免导航拥挤 */
@@ -46,34 +52,213 @@
             .header-div, .main-div, .navbar, .nav-container { max-width: none; }
         }
 
-        /* Language switch (CN) */
+        /* Language switch (CN) - 优化版本 */
         .lang-switch {
-            position: relative; z-index: 2;
-            text-decoration: none; user-select: none;
-            display: inline-flex; align-items: center;
-            height: 36px; border-radius: 18px; overflow: hidden;
-            background: linear-gradient(135deg, #6d66ff 0%, #7b6cff 50%, #8a6bff 100%);
-            box-shadow: 0 8px 22px rgba(109,102,255,.35);
-            color: #fff; margin-left: 12px;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.95);
+            margin-left: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            font-weight: 500;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .lang-switch:active {
+            transform: translateY(0);
         }
         .lang-switch .ls-left {
-            display: inline-flex; align-items: center; padding: 0 14px; gap: 10px;
-            background: radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.16) 0%, rgba(255,255,255,.06) 60%, rgba(255,255,255,0) 100%);
-            height: 100%;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         .lang-switch .badge {
-            background: rgba(255,255,255,.25);
-            padding: 4px 8px; border-radius: 8px; font-weight: 700; letter-spacing: .5px; font-size: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .lang-switch .divider { width: 1px; height: 18px; background: rgba(255,255,255,.7); }
-        .lang-switch .label { font-size: 10px; font-weight: 600; }
-        .lang-switch .ls-right { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 100%; background: rgba(0,0,0,.14); }
-        .lang-switch .arrow { display: inline-block; width: 8px; height: 8px; border-right: 2px solid #fff; border-top: 2px solid #fff; transform: rotate(45deg); }
-        .lang-switch:hover { filter: brightness(1.06); }
-        .lang-switch:active { transform: translateY(1px); }
+        .lang-switch .divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lang-switch .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .lang-switch .ls-right {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+        .lang-switch .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+        }
+        .lang-switch:hover .arrow {
+            transform: translateY(2px);
+        }
         @media (max-width: 768px) {
-            /* Keep switch visible above the slide-out drawer */
-            .lang-switch { position: fixed; right: 12px; top: 5px; height: 34px; z-index: 10002; }
+            .lang-switch {
+                position: fixed;
+                right: 12px;
+                /* top: 0px; */
+                height: 38px;
+                padding: 0 14px;
+                z-index: 10002;
+                font-size: 13px;
+            }
+            .lang-switch .badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+            .lang-switch .label {
+                font-size: 12px;
+            }
+        }
+
+        /* 下拉菜单样式 */
+        .nav-item { 
+            position: relative; 
+            display: inline-block;
+        }
+        .dropdown-toggle { 
+            cursor: pointer; 
+            user-select: none;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            min-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 1000;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            pointer-events: none;
+            overflow: visible;
+            max-height: none;
+            height: auto;
+        }
+        /* 菜单显示时 */
+        .nav-item:hover .dropdown-menu,
+        .nav-item.dropdown-open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        /* 下拉菜单链接样式 */
+        .dropdown-menu .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dropdown-menu .nav-link:hover {
+            background: #f5f5f5;
+            color: #007bff;
+        }
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+        
+        /* 中等屏幕响应式设计（平板） */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dropdown-menu {
+                min-width: 480px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* 大屏幕显示4列 */
+        @media (min-width: 1025px) {
+            .dropdown-menu {
+                min-width: 600px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* 导航栏图标样式 */
+        .dropdown-toggle::before,
+        .nav-link[href="about.html"]::before,
+        .nav-link[href="contact.html"]::before {
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .dropdown-toggle::before {
+            content: "🤖";
+        }
+        .nav-link[href="about.html"]::before {
+            content: "ℹ️";
+        }
+        .nav-link[href="contact.html"]::before {
+            content: "📧";
+        }
+        
+        /* 确保下拉菜单在导航栏中正确显示 */
+        @media (min-width: 769px) {
+            .nav-item .dropdown-toggle {
+                color: rgba(255, 255, 255, 0.9);
+                background-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 8px 16px;
+                display: inline-block;
+                font-weight: 500;
+            }
+            .nav-item:hover .dropdown-toggle {
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #fff;
+            }
         }
 
         /* 移动端抽屉菜单 */
@@ -101,6 +286,66 @@
             .nav-toggle.nav-toggle-active .hamburger:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             /* 移动端上下间隙（PC 端不生效） */
             .nav-menu .nav-link { margin: 10px 0; }
+            
+            /* 移动端下拉菜单样式 */
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            .dropdown-toggle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 16px 20px;
+                color: #333;
+                background: white;
+                border: none;
+                text-align: left;
+                font-size: 1rem;
+                font-weight: 500;
+                margin: 0;
+            }
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                transform: none;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                transition: opacity 0.3s ease, max-height 0.3s ease;
+                border-radius: 0;
+                display: block !important;
+                grid-template-columns: 1fr !important;
+                min-width: auto !important;
+            }
+            .nav-item.dropdown-open .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 2000px;
+            }
+            .dropdown-menu .nav-link {
+                padding: 12px 20px 12px 40px;
+                font-size: 14px;
+                border-bottom: 1px solid #e9ecef;
+                color: #333;
+                text-align: left;
+            }
+            .dropdown-menu .nav-link:hover {
+                background: #e9ecef;
+            }
+            
+            /* 移动端导航栏图标 */
+            .dropdown-toggle::before,
+            .nav-link[href="about.html"]::before,
+            .nav-link[href="contact.html"]::before {
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 18px;
+            }
         }
 
         /* Normalize action buttons height and appearance */
@@ -123,23 +368,31 @@
                     <span class="hamburger"></span>
                 </button>
                 <div class="nav-menu" id="navMenu">
-                    <a href="crop/crop.html" class="nav-link">Crop</a>
-                    <a href="convert/convert.html" class="nav-link">Convert</a>
-                    <a href="icon/icon.html" class="nav-link">Icon</a>
-                    <a href="compress/compress.html" class="nav-link">Compress</a>
-                    <a href="blank/blank.html" class="nav-link">B&W</a>
-                    <a href="watermark/watermark.html" class="nav-link">Add WMK‌</a>
-                    <a href="removewm/removewm.html" class="nav-link">Remove WMK‌</a>
-                    <a href="nine/nine.html" class="nav-link">3x3 Grid</a>
-                    <a href="text/text.html" class="nav-link">Text2Img</a>
-                    <a href="join/join.html" class="nav-link">Stitching</a>
-                    <a href="textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
-                    <a href="corner/corner.html" class="nav-link">RC</a>
-                    <a href="expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="old/old.html" class="nav-link">OPR‌</a>
-                    <a href="bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="removebg/removebg.html" class="nav-link">Remover BG</a>
-                    <a href="changebg/changebg.html" class="nav-link">BG Changer</a>
+                    <div class="nav-item">
+                        <span class="nav-link dropdown-toggle">Image AI tool</span>
+                        <div class="dropdown-menu">
+                            <a href="index.html" class="nav-link">Image Mosaic</a>
+                            <a href="crop/crop.html" class="nav-link">Crop Image</a>
+                            <a href="convert/convert.html" class="nav-link">Format Convert</a>
+                            <a href="icon/icon.html" class="nav-link">Icon Generator</a>
+                            <a href="compress/compress.html" class="nav-link">Compress Image</a>
+                            <a href="blank/blank.html" class="nav-link">Grayscale</a>
+                            <a href="watermark/watermark.html" class="nav-link">Add Watermark</a>
+                            <a href="removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                            <a href="nine/nine.html" class="nav-link">Image Grid</a>
+                            <a href="text/text.html" class="nav-link">Text to Image</a>
+                            <a href="join/join.html" class="nav-link">Merge Images</a>
+                            <a href="textToimage/textToimage.html" class="nav-link">Add Text</a>
+                            <a href="corner/corner.html" class="nav-link">Round Corners</a>
+                            <a href="expand/expand.html" class="nav-link">Upscale Image</a>
+                            <a href="old/old.html" class="nav-link">Restore Photo</a>
+                            <a href="bg/bg.html" class="nav-link">Colorize Image</a>
+                            <a href="removebg/removebg.html" class="nav-link">Remove Background</a>
+                            <a href="changebg/changebg.html" class="nav-link">Change Background</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
                 </div>
                 <a class="lang-switch" href="https://mosaic.openai2025.com/" rel="nofollow" aria-label="Switch to Chinese version">
                     <span class="ls-left">
@@ -197,12 +450,208 @@
             </div>
         </section>
     </main>
-    <div style="max-width:1000px;margin:12px auto 0;color:#666;font-size:14px;line-height:1.6;padding:0 12px;text-align:left;">
-        <div><b>Rectangle mode instructions:</b></div>
-        <div>1. Choose "Rectangle area" under "Mode" on the right.</div>
-        <div>2. Press and drag on the left image to select the area to mosaic, release to apply.</div>
-        <div>3. You can add multiple rectangles; to clear, switch to "Brush" mode and click "Clear selection".</div>
+
+    <!-- 功能说明和使用帮助部分 -->
+    <section class="info-section">
+        <div class="info-container">
+            <!-- 功能说明 -->
+            <div class="info-card">
+                <h2>📋 Feature Description</h2>
+                <p>Our Image Mosaic tool provides three powerful modes to protect privacy and create artistic effects:</p>
+                <ul>
+                    <li><strong>Full Mosaic:</strong> Apply mosaic effect to the entire image</li>
+                    <li><strong>Rectangle Area:</strong> Select specific rectangular areas to mosaic</li>
+                    <li><strong>Brush Mode:</strong> Paint mosaic effects with a customizable brush size</li>
+                </ul>
     </div>
+
+            <!-- 使用帮助 -->
+            <div class="info-card">
+                <h2>💡 Usage Guide</h2>
+                <ol>
+                    <li>Click "Choose Image" to upload your image</li>
+                    <li>Select your preferred mode (Full, Rectangle, or Brush)</li>
+                    <li>Adjust the mosaic strength slider (1-10)</li>
+                    <li>For Rectangle mode: Click and drag to select areas</li>
+                    <li>For Brush mode: Paint over areas you want to mosaic</li>
+                    <li>Click "Download image" to save your processed image</li>
+                </ol>
+            </div>
+
+            <!-- 使用案例 -->
+            <div class="info-card">
+                <h2>🎨 Use Cases</h2>
+                <div class="use-cases">
+                    <div class="use-case-item">
+                        <strong>Privacy Protection:</strong> Blur faces, license plates, or sensitive information in photos
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Artistic Effects:</strong> Create pixelated art styles for creative projects
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Content Moderation:</strong> Censor inappropriate content before sharing
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Social Media:</strong> Protect privacy when posting images online
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 案例展示部分 -->
+    <section class="examples-section">
+        <div class="examples-container">
+            <h2>📸 Example Cases</h2>
+            <div class="examples-grid">
+                <!-- 全部马赛克案例 -->
+                <div class="example-card">
+                    <h3>Full Mosaic Example</h3>
+                    <div class="example-image-wrapper">
+                        <img src="static/image/m1.png" alt="Full Mosaic Example" class="example-image">
+                    </div>
+                    <p class="example-description">
+                        <strong>Full Mosaic Mode:</strong> Apply mosaic effect to the entire image. This mode is perfect for creating artistic pixelated effects or protecting privacy across the whole image.
+                    </p>
+                </div>
+
+                <!-- 局部马赛克案例 -->
+                <div class="example-card">
+                    <h3>Partial Mosaic Example</h3>
+                    <div class="example-image-wrapper">
+                        <img src="static/image/m2.png" alt="Partial Mosaic Example" class="example-image">
+                    </div>
+                    <p class="example-description">
+                        <strong>Partial Mosaic Mode:</strong> Select specific areas to apply mosaic effect. Use Rectangle or Brush mode to protect only the areas you want while keeping the rest of the image clear.
+                    </p>
+                </div>
+
+                <!-- 视频案例 -->
+                <div class="example-card example-video-card">
+                    <h3>Video Tutorial</h3>
+                    <div class="example-video-wrapper">
+                        <video src="static/image/mosaic.mp4" controls class="example-video" poster="">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="example-description">
+                        <strong>Video Guide:</strong> Watch this tutorial video to learn how to use our Image Mosaic tool effectively. See step-by-step instructions for applying mosaic effects to protect privacy or create artistic effects.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 会员套餐部分 -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <h2>💎 Membership Plans</h2>
+            <div class="pricing-grid">
+                <!-- 月度套餐 -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Monthly Plan</h3>
+                        <div class="price">$6.66<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited image processing</li>
+                        <li>✓ All mosaic modes</li>
+                        <li>✓ High-resolution downloads</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Ad-free experience</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- 季度套餐 -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Best Value</div>
+                    <div class="pricing-header">
+                        <h3>Quarterly Plan</h3>
+                        <div class="price">$16.66<span>/3 months</span></div>
+                        <div class="price-save">Save 17%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Monthly</li>
+                        <li>✓ Batch processing</li>
+                        <li>✓ Advanced filters</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom watermark</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- 年度套餐 -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Annual Plan</h3>
+                        <div class="price">$56.66<span>/year</span></div>
+                        <div class="price-save">Save 33%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Quarterly</li>
+                        <li>✓ Unlimited storage</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ Early access to new features</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 邮箱订阅部分 -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>📧 Subscribe to Our Newsletter</h2>
+            <p>Get access to usage guides, use cases, and exclusive membership offers</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email address" required class="newsletter-input">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+            <p class="newsletter-note">By subscribing, you'll receive usage guides, use cases, and membership information.</p>
+        </div>
+    </section>
+
+    <!-- 页脚部分 -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- 关于我们 -->
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Chuandao AI provides cutting-edge image processing tools to help you create, edit, and enhance your images with ease.</p>
+                </div>
+
+                <!-- 联系我们 -->
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:support@chuandaoai.com">support@chuandaoai.com</a></p>
+                    <p>We're here to help with any questions or concerns.</p>
+                </div>
+
+                <!-- 隐私政策 -->
+                <div class="footer-column">
+                    <h3>Privacy Policy</h3>
+                    <p>We respect your privacy. All uploaded images are processed securely and are not stored on our servers.</p>
+                    <a href="privacy.html" class="footer-link">Read More</a>
+                </div>
+
+                <!-- 服务条款 -->
+                <div class="footer-column">
+                    <h3>Terms of Service</h3>
+                    <p>By using our service, you agree to our terms and conditions.</p>
+                    <a href="terms.html" class="footer-link">Read More</a>
+                </div>
+            </div>
+
+            <!-- 版权信息 -->
+            <div class="footer-bottom">
+                <p>Copyright © Chuandao AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
     <script type="text/javascript">
 
         var pix = 5;
@@ -375,6 +824,69 @@
             
             if (navOverlay) {
                 navOverlay.addEventListener('click', closeMenu);
+            }
+            
+            // 下拉菜单点击处理（移动端）
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const navItem = document.querySelector('.nav-item');
+            
+            if (dropdownToggle && dropdownMenu && navItem) {
+                let hideTimeout = null;
+                
+                // PC端：简洁的鼠标悬停逻辑
+                if (!isMobile()) {
+                    let hideTimer = null;
+                    
+                    function showMenu() {
+                        if (hideTimer) {
+                            clearTimeout(hideTimer);
+                            hideTimer = null;
+                        }
+                        navItem.classList.add('dropdown-open');
+                    }
+                    
+                    function hideMenu() {
+                        hideTimer = setTimeout(function() {
+                            navItem.classList.remove('dropdown-open');
+                        }, 200);
+                    }
+                    
+                    // 鼠标进入时显示
+                    navItem.addEventListener('mouseenter', showMenu);
+                    dropdownMenu.addEventListener('mouseenter', showMenu);
+                    
+                    // 鼠标离开时隐藏
+                    navItem.addEventListener('mouseleave', function(e) {
+                        if (e.relatedTarget && dropdownMenu.contains(e.relatedTarget)) {
+                            return;
+                        }
+                        hideMenu();
+                    });
+                    
+                    dropdownMenu.addEventListener('mouseleave', function(e) {
+                        if (e.relatedTarget && navItem.contains(e.relatedTarget)) {
+                            return;
+                        }
+                        hideMenu();
+                    });
+                }
+                
+                // 移动端点击处理
+                dropdownToggle.addEventListener('click', function(e) {
+                    if (isMobile()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        navItem.classList.toggle('dropdown-open');
+                    }
+                });
+                
+                // 点击外部关闭下拉菜单（仅移动端）
+                document.addEventListener('click', function(e) {
+                    if (isMobile() && !navItem.contains(e.target)) {
+                        navItem.classList.remove('dropdown-open');
+                    }
+                });
             }
             
             // 点击菜单项后关闭移动端菜单
@@ -921,6 +1433,43 @@
         })();
 
          
+    </script>  
+
+    <!-- 邮箱订阅功能 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsletterForm = document.getElementById('newsletterForm');
+            
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('.newsletter-input');
+                    const email = emailInput.value.trim();
+                    
+                    if (email) {
+                        // 这里可以添加实际的订阅逻辑，比如发送到后端API
+                        alert('Thank you for subscribing! You will receive usage guides, use cases, and membership information.');
+                        emailInput.value = '';
+                        
+                        // 示例：可以发送到后端
+                        // fetch('/api/subscribe', {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify({ email: email })
+                        // })
+                        // .then(response => response.json())
+                        // .then(data => {
+                        //     alert('Thank you for subscribing!');
+                        //     emailInput.value = '';
+                        // })
+                        // .catch(error => {
+                        //     alert('Subscription failed. Please try again.');
+                        // });
+                    }
+                });
+            }
+        });
     </script>  
 
 </body>

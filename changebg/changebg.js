@@ -286,11 +286,11 @@ class BackgroundChanger {
         this.displayResults();
         
         // Show Result Notification
-        if (successCount > 0) {
-            alert(resultMessage);
-        } else {
-            alert('Processing failed, please check image format and settings');
-        }
+        // if (successCount > 0) {
+        //     alert(resultMessage);
+        // } else {
+        //     alert('Processing failed, please check image format and settings');
+        // }
     }
 
     async processImage(imageData) {

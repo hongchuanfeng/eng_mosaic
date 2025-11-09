@@ -4,62 +4,316 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="favicon" rel="icon" type="image/png" href="../favicon.ico">
     <title>Online free image mosaic - Online Image Compressor</title>
     <meta name="keywords" content="online image compressor,image compression tool,image optimization,reduce file size,image quality" />
     <meta name="description" content="Free online image compressor. Compress JPG, PNG, WebP. Control quality and size, batch compression supported." />
     <link rel="canonical" href="https://mosaic.chdaoai.com/compress/compress.html">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB0W88E8NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        gtag('config', 'G-V0YFLKRH7D');
-    </script>
+  gtag('config', 'G-CB0W88E8NY');
+</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css.css">
     <link rel="stylesheet" href="compress.css">
     <style>
-        /* Keep navigation bar and header styles consistent with index.html */
-        .navbar { 
-            background: rgba(255, 255, 255, 0.1) !important; 
-            backdrop-filter: blur(10px) !important; 
-            -webkit-backdrop-filter: blur(10px) !important; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        body { min-height: 120vh; }
+        body { background-color: transparent; }
+        .navbar { position: relative; z-index: auto; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-menu { display: flex; flex-wrap: wrap; gap: 8px; }
+        .nav-link { padding: 0; display: inline-flex; align-items: center; }
+        .nav-toggle { display: none; background: transparent; border: none; padding: 8px; cursor: pointer; }
+        .hamburger { display: block; width: 22px; height: 2px; background: rgba(255, 255, 255, 0.9); margin: 5px 0; transition: transform .25s ease, opacity .25s ease; }
+        .nav-overlay { display: none; }
+
+        @media (min-width: 769px) {
+            .nav-link { padding: 5px 12px; }
+            .nav-menu { gap: 8px; }
+            .nav-item { display: inline-block; }
         }
-        .header-div {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+
+        @media (min-width: 1025px) {
+            html, body { min-width: 1600px; }
+            .header-div, .main-div, .navbar, .nav-container { max-width: none; }
         }
-        /* Mobile drawer menu consistent with index */
+
+        .lang-switch {
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.95);
+            margin-left: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            font-weight: 500;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .lang-switch .ls-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lang-switch .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .lang-switch .divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lang-switch .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .lang-switch .ls-right {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+        .lang-switch .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+        }
+        .lang-switch:hover .arrow {
+            transform: translateY(2px);
+        }
         @media (max-width: 768px) {
-            /* Prevent menu truncation due to parent clipping or stacking context */
+            .lang-switch {
+                position: fixed;
+                right: 12px;
+                height: 38px;
+                padding: 0 14px;
+                z-index: 10002;
+                font-size: 13px;
+            }
+            .lang-switch .badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+            .lang-switch .label {
+                font-size: 12px;
+            }
+        }
+
+        .nav-item { 
+            position: relative; 
+            display: inline-block;
+        }
+        .dropdown-toggle { 
+            cursor: pointer; 
+            user-select: none;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            min-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 1000;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            pointer-events: none;
+            overflow: visible;
+            max-height: none;
+            height: auto;
+        }
+        .nav-item:hover .dropdown-menu,
+        .nav-item.dropdown-open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .dropdown-menu .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dropdown-menu .nav-link:hover {
+            background: #f5f5f5;
+            color: #007bff;
+        }
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dropdown-menu {
+                min-width: 480px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .dropdown-menu {
+                min-width: 600px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .dropdown-toggle::before,
+        .nav-link[href="../about.html"]::before,
+        .nav-link[href="about.html"]::before {
+            content: "🤖";
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .nav-link[href="../about.html"]::before,
+        .nav-link[href="about.html"]::before {
+            content: "ℹ️";
+        }
+        .nav-link[href="../contact.html"]::before,
+        .nav-link[href="contact.html"]::before {
+            content: "📧";
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        
+        @media (min-width: 769px) {
+            .nav-item .dropdown-toggle {
+                color: rgba(255, 255, 255, 0.9);
+                background-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 8px 16px;
+                display: inline-block;
+                font-weight: 500;
+            }
+            .nav-item:hover .dropdown-toggle {
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #fff;
+            }
+        }
+
+        @media (max-width: 768px) {
             .header-div, .navbar, .nav-container { overflow: visible !important; }
             .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
             .header-div, .navbar, .nav-container { contain: unset !important; }
             .nav-toggle { display: inline-block; }
-            /* Enhance hamburger button visibility (clearer three lines) */
-            .nav-toggle { 
-                position: relative; z-index: 10002; 
-                display: inline-flex; align-items: center; justify-content: center; 
-                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
-                background: rgba(255,255,255,.55); border-radius: 8px; 
-                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            .nav-menu {
+                position: fixed; top: 0; bottom: 0; left: 0; width: 85%; max-width: 420px;
+                background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,.12);
+                display: block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+                transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; will-change: transform;
             }
-            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
-            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu .nav-link { display: flex; align-items: center; padding: 0; border-bottom: 1px solid #f2f2f2; }
             .nav-menu.nav-menu-active { transform: translateX(0); }
-            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
-            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
-            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+            .nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 10000; display: block; }
+            .nav-overlay.nav-overlay-active { opacity: 1; pointer-events: auto; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2) { opacity: 0; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            .nav-menu .nav-link { margin: 10px 0; }
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            .dropdown-toggle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 16px 20px;
+                color: #333;
+                background: white;
+                border: none;
+                text-align: left;
+                font-size: 1rem;
+                font-weight: 500;
+                margin: 0;
+            }
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                transform: none;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                transition: opacity 0.3s ease, max-height 0.3s ease;
+                border-radius: 0;
+                display: block !important;
+                grid-template-columns: 1fr !important;
+                min-width: auto !important;
+            }
+            .nav-item.dropdown-open .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 2000px;
+            }
+            .dropdown-menu .nav-link {
+                padding: 12px 20px 12px 40px;
+                font-size: 14px;
+                border-bottom: 1px solid #e9ecef;
+                color: #333;
+                text-align: left;
+            }
+            .dropdown-menu .nav-link:hover {
+                background: #e9ecef;
+            }
         }
-        /* Left-align nav links under #navMenu */
-        #navMenu { justify-content: flex-start !important; text-align: left; }
-        #navMenu .nav-link { justify-content: flex-start !important; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -72,25 +326,40 @@
                     <span class="hamburger"></span>
                 </button>
                 <div class="nav-menu" id="navMenu">
-                    <a href="../index.html" class="nav-link">Mosaic</a>
-                    <a href="../crop/crop.html" class="nav-link">Crop</a>
-                    <a href="../convert/convert.html" class="nav-link">Convert</a>
-                    <a href="../icon/icon.html" class="nav-link">Icon</a>
-                    <a href="compress.html" class="nav-link">Compress</a>
-                    <a href="../blank/blank.html" class="nav-link">Black&White</a>
-                    <a href="../watermark/watermark.html" class="nav-link">Add WMK</a>
-                    <a href="../removewm/removewm.html" class="nav-link">Remove WMK</a>
-                    <a href="../nine/nine.html" class="nav-link">3x3 Grid</a>
-                    <a href="../text/text.html" class="nav-link">Text2Img</a>
-                    <a href="../join/join.html" class="nav-link">Stitching</a>
-                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
-                    <a href="../corner/corner.html" class="nav-link">RC</a>
-                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="../old/old.html" class="nav-link">OPR</a>
-                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="../removebg/removebg.html" class="nav-link">BG Remover</a>
-                    <a href="../changebg/changebg.html" class="nav-link">BG Changer</a>
+                    <div class="nav-item">
+                        <span class="nav-link dropdown-toggle">Image AI tool</span>
+                        <div class="dropdown-menu">
+                            <a href="../index.html" class="nav-link">Image Mosaic</a>
+                            <a href="../crop/crop.html" class="nav-link">Crop Image</a>
+                            <a href="../convert/convert.html" class="nav-link">Format Convert</a>
+                            <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                            <a href="compress.html" class="nav-link">Compress Image</a>
+                            <a href="../blank/blank.html" class="nav-link">Grayscale</a>
+                            <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                            <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                            <a href="../nine/nine.html" class="nav-link">Image Grid</a>
+                            <a href="../text/text.html" class="nav-link">Text to Image</a>
+                            <a href="../join/join.html" class="nav-link">Merge Images</a>
+                            <a href="../textToimage/textToimage.html" class="nav-link">Add Text</a>
+                            <a href="../corner/corner.html" class="nav-link">Round Corners</a>
+                            <a href="../expand/expand.html" class="nav-link">Upscale Image</a>
+                            <a href="../old/old.html" class="nav-link">Restore Photo</a>
+                            <a href="../bg/bg.html" class="nav-link">Colorize Image</a>
+                            <a href="../removebg/removebg.html" class="nav-link">Remove Background</a>
+                            <a href="../changebg/changebg.html" class="nav-link">Change Background</a>
                 </div>
+                    </div>
+                    <a href="../about.html" class="nav-link">About</a>
+                    <a href="../contact.html" class="nav-link">Contact</a>
+                </div>
+                <a class="lang-switch" href="https://mosaic.openai2025.com/" rel="nofollow" aria-label="Switch to Chinese version">
+                    <span class="ls-left">
+                        <span class="badge">CN</span>
+                        <span class="divider"></span>
+                        <span class="label">中文</span>
+                    </span>
+                    <span class="ls-right"><i class="arrow"></i></span>
+                </a>
             </div>
         </nav>
         <h1 class="header-title">Image Compressor</h1>
@@ -307,113 +576,278 @@
             </div>
         </section>
 
-        <!-- Instructions -->
-        <section class="instructions-section">
-            <div class="instructions-container">
-                <h3>Instructions</h3>
-                <div class="instructions-content">
-                    <div class="instruction-item">
-                        <h4>🎯 Compression modes</h4>
-                        <p><strong>Quality first:</strong> Maintain image quality while moderately reducing file size</p>
-                        <p><strong>Size first:</strong> Prioritize reducing file size, may affect image quality</p>
-                        <p><strong>Custom settings:</strong> Manually adjust compression parameters for precise control</p>
+    </main>
+
+    <!-- Feature description and usage guide section -->
+    <section class="info-section">
+        <div class="info-container">
+            <!-- Feature description -->
+            <div class="info-card">
+                <h2>📋 Feature Description</h2>
+                <p>Our Image Compressor tool provides powerful compression capabilities to reduce file sizes while maintaining quality:</p>
+                <ul>
+                    <li><strong>Multiple Compression Modes:</strong> Quality first, Size first, or Custom settings</li>
+                    <li><strong>Batch Processing:</strong> Compress up to 20 images at once</li>
+                    <li><strong>Format Conversion:</strong> Convert between JPEG, PNG, and WebP formats</li>
+                    <li><strong>Resize Options:</strong> Adjust image dimensions by percentage or pixels</li>
+                    <li><strong>Advanced Options:</strong> Remove metadata, optimize colors, and progressive JPEG support</li>
+                </ul>
+            </div>
+
+            <!-- Usage guide -->
+            <div class="info-card">
+                <h2>💡 Usage Guide</h2>
+                <ol>
+                    <li>Click "Choose images" or drag & drop images to upload (up to 20 images)</li>
+                    <li>Select compression mode: Quality first, Size first, or Custom</li>
+                    <li>Adjust compression quality slider or set target file size</li>
+                    <li>Optionally enable resize to reduce dimensions</li>
+                    <li>Choose output format (keep original, JPEG, PNG, or WebP)</li>
+                    <li>Enable advanced options if needed (remove metadata, optimize colors, etc.)</li>
+                    <li>Click "Compress all" to start compression</li>
+                    <li>Download individual images or download all as ZIP</li>
+                </ol>
+            </div>
+
+            <!-- Use cases -->
+            <div class="info-card">
+                <h2>🎨 Use Cases</h2>
+                <div class="use-cases">
+                    <div class="use-case-item">
+                        <strong>Website Optimization:</strong> Reduce image file sizes to improve website loading speed
                     </div>
-                    <div class="instruction-item">
-                        <h4>📏 Resize</h4>
-                        <p>Adjusting image dimensions can significantly reduce file size. Choose appropriate dimensions based on your use case</p>
+                    <div class="use-case-item">
+                        <strong>Email Attachments:</strong> Compress images to meet email size limits
                     </div>
-                    <div class="instruction-item">
-                        <h4>💡 Optimization tips</h4>
-                        <p>• JPEG is good for photos, with solid compression</p>
-                        <p>• PNG is suited for icons and transparency</p>
-                        <p>• WebP offers the highest compression ratio but has limited compatibility</p>
-                        <p>• Removing metadata can further reduce file size</p>
+                    <div class="use-case-item">
+                        <strong>Social Media:</strong> Optimize images for faster uploads and better performance
+                    </div>
+                    <div class="use-case-item">
+                        <strong>Storage Management:</strong> Save storage space by compressing large image collections
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video tutorial section -->
+    <section class="examples-section">
+        <div class="examples-container">
+            <h2>📹 Video Tutorial</h2>
+            <div class="examples-grid">
+                <div class="example-card example-video-card">
+                    <h3>How to Use Image Compressor</h3>
+                    <div class="example-video-wrapper">
+                        <video src="/static/image/compress.mp4" controls class="example-video" poster="">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="example-description">
+                        <strong>Video Guide:</strong> Watch this tutorial video to learn how to use our Image Compressor tool effectively. See step-by-step instructions for compressing images, adjusting compression settings, batch processing, and downloading your results.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership plans section -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <h2>💎 Membership Plans</h2>
+            <div class="pricing-grid">
+                <!-- Monthly plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Monthly Plan</h3>
+                        <div class="price">$6.6<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited image compression</li>
+                        <li>✓ All compression modes</li>
+                        <li>✓ Batch processing (up to 50 images)</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Ad-free experience</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- Quarterly plan -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Best Value</div>
+                    <div class="pricing-header">
+                        <h3>Quarterly Plan</h3>
+                        <div class="price">$16.66<span>/3 months</span></div>
+                        <div class="price-save">Save 17%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Monthly</li>
+                        <li>✓ Unlimited batch processing</li>
+                        <li>✓ Advanced compression algorithms</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom compression presets</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                    </div>
+
+                <!-- Annual plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Annual Plan</h3>
+                        <div class="price">$56.66<span>/year</span></div>
+                        <div class="price-save">Save 33%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Quarterly</li>
+                        <li>✓ Unlimited storage</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ Early access to new features</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
 
-    <script>
-        // Navigation menu toggle functionality
+    <!-- Newsletter subscription section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>📧 Subscribe to Our Newsletter</h2>
+            <p>Get access to usage guides, use cases, and exclusive membership offers</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email address" required class="newsletter-input">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+            <p class="newsletter-note">By subscribing, you'll receive usage guides, use cases, and membership information.</p>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Image Mosaic</a></li>
+                        <li><a href="../crop/crop.html">Crop Image</a></li>
+                        <li><a href="../convert/convert.html">Format Convert</a></li>
+                        <li><a href="../icon/icon.html">Icon Generator</a></li>
+                        <li><a href="compress.html">Compress Image</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Chuandao AI provides cutting-edge image processing tools to help you create, edit, and enhance your images with ease.</p>
+                    <a href="../about.html" class="footer-link">Learn More</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:support@chuandaoai.com">support@chuandaoai.com</a></p>
+                    <p>We're here to help with any questions or concerns.</p>
+                    <a href="../contact.html" class="footer-link">Get in Touch</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © Chuandao AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // Mobile menu toggle logic
         document.addEventListener('DOMContentLoaded', function() {
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
             const navOverlay = document.getElementById('navOverlay');
+            const navItem = document.querySelector('.nav-item'); // For dropdown
+            const dropdownToggle = document.querySelector('.dropdown-toggle'); // For dropdown
+            const dropdownMenu = document.querySelector('.dropdown-menu'); // For dropdown
             const navOriginalContainer = navMenu ? navMenu.parentElement : null;
             
-            // Check if mobile device
             function isMobile() {
                 return window.innerWidth <= 768;
             }
             
+            // Move menu to body directly on mobile to avoid parent stacking context/clipping affecting z-index
+            function promoteMenuForMobile(){
+                if (!navMenu) return;
+                if (isMobile()) {
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                    // Ensure mobile menu has correct styles
+                    navMenu.style.display = 'flex';
+                    navMenu.style.position = 'fixed';
+                    navMenu.style.top = '0';
+                    navMenu.style.left = '0';
+                    navMenu.style.width = '380px';
+                    navMenu.style.height = '100vh';
+                    navMenu.style.background = '#ffffff';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.justifyContent = 'flex-start';
+                    navMenu.style.alignItems = 'stretch';
+                    navMenu.style.padding = '0';
+                    navMenu.style.gap = '0';
+                    navMenu.style.zIndex = '10001';
+                    navMenu.style.boxShadow = '2px 0 10px rgba(0, 0, 0, 0.1)';
+                        navMenu.style.overflowY = 'scroll';
+                        navMenu.style.overflowX = 'hidden';
+                    navMenu.style.webkitOverflowScrolling = 'touch';
+                        navMenu.style.touchAction = 'pan-y';
+                    navMenu.style.transition = 'transform .25s ease';
+                    
+                    // Keep menu's current display state, don't force hide
+                    if (!navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(-100%)';
+                    } else {
+                        navMenu.style.transform = 'translateX(0)';
+                    }
+                    } else {
+                    if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
+                        navOriginalContainer.appendChild(navMenu);
+                    }
+                    // Reset PC styles
+                    navMenu.style.display = '';
+                    navMenu.style.position = '';
+                    navMenu.style.top = '';
+                    navMenu.style.left = '';
+                    navMenu.style.width = '';
+                    navMenu.style.height = '';
+                    navMenu.style.background = '';
+                    navMenu.style.flexDirection = '';
+                    navMenu.style.justifyContent = '';
+                    navMenu.style.alignItems = '';
+                    navMenu.style.padding = '';
+                    navMenu.style.gap = '';
+                    navMenu.style.zIndex = '';
+                    navMenu.style.boxShadow = '';
+                    navMenu.style.overflowY = '';
+                    navMenu.style.overflowX = '';
+                    navMenu.style.webkitOverflowScrolling = '';
+                    navMenu.style.touchAction = '';
+                    navMenu.style.transition = '';
+                    navMenu.style.transform = '';
+                }
+            }
+            
+            // Call on initialization
+            promoteMenuForMobile();
+            
             function toggleMenu() {
                 if (isMobile()) {
-                    console.log('Toggle menu clicked');
                     navMenu.classList.toggle('nav-menu-active');
                     navToggle.classList.toggle('nav-toggle-active');
                     navOverlay.classList.toggle('nav-overlay-active');
-                    
-                    // Ensure menu is visible by removing hidden transform
-                    if (navMenu.classList.contains('nav-menu-active')) {
-                        navMenu.style.transform = 'translateX(0)';
-                        // Disable page scrolling
-                        document.body.classList.add('menu-open');
-                        document.documentElement.classList.add('menu-open');
-                        
-                        // Force set menu scroll properties
-                        navMenu.style.overflowY = 'scroll';
-                        navMenu.style.overflowX = 'hidden';
-                        navMenu.style.height = '100vh';
-                        navMenu.style.touchAction = 'pan-y';
-                        navMenu.style.webkitOverflowScrolling = 'touch';
-                        
-                        // Diagnostics: calculate total height of child items
-                        const links = navMenu.querySelectorAll('.nav-link');
-                        let totalItemsHeight = 0;
-                        links.forEach(el => { totalItemsHeight += el.offsetHeight; });
-                        console.log('Menu opened with scroll enabled');
-                        console.log('Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight, 'Items sum:', totalItemsHeight, 'Count:', links.length);
-                        console.log('Menu computed overflow-y:', getComputedStyle(navMenu).overflowY);
-
-                        // Force add spacer to ensure scrollability
-                        let spacer = document.getElementById('__nav_spacer__');
-                        if (spacer && spacer.parentElement === navMenu) {
-                            navMenu.removeChild(spacer);
-                        }
-                        spacer = document.createElement('div');
-                        spacer.id = '__nav_spacer__';
-                        spacer.style.height = '300px';
-                        spacer.style.width = '100%';
-                        spacer.style.display = 'block';
-                        spacer.style.pointerEvents = 'none';
-                        spacer.style.backgroundColor = 'transparent';
-                        spacer.style.flexShrink = '0';
-                        navMenu.appendChild(spacer);
-                        
-                        // Force recalculate layout
-                        navMenu.offsetHeight;
-                        
-                        // Output height again for verification
-                        setTimeout(function(){
-                            console.log('After spacer -> Menu height:', navMenu.clientHeight, 'Content height:', navMenu.scrollHeight);
-                            console.log('Spacer height:', spacer.offsetHeight);
-                            console.log('Can scroll:', navMenu.scrollHeight > navMenu.clientHeight);
-                            console.log('Scroll top:', navMenu.scrollTop, 'Max scroll:', navMenu.scrollHeight - navMenu.clientHeight);
-                        }, 50);
-                    } else {
-                        navMenu.style.transform = 'translateX(-100%)';
-                        // Restore page scrolling
-                        document.body.classList.remove('menu-open');
-                        document.documentElement.classList.remove('menu-open');
-                        // Clean up placeholder
-                        const spacer = document.getElementById('__nav_spacer__');
-                        if (spacer && spacer.parentElement === navMenu) {
-                            navMenu.removeChild(spacer);
-                        }
-                    }
-                    
-                    console.log('Menu classes:', navMenu.className);
+                    document.body.classList.toggle('menu-open');
+                    document.documentElement.classList.toggle('menu-open');
                 }
             }
             
@@ -422,66 +856,145 @@
                     navMenu.classList.remove('nav-menu-active');
                     navToggle.classList.remove('nav-toggle-active');
                     navOverlay.classList.remove('nav-overlay-active');
-                    navMenu.style.transform = 'translateX(-100%)';
-                    // Restore page scrolling
                     document.body.classList.remove('menu-open');
                     document.documentElement.classList.remove('menu-open');
                 }
             }
 
-            // Move menu to body directly on mobile to avoid parent stacking context/clipping affecting z-index
-            function promoteMenuForMobile(){
-                if (!navMenu) return;
-                if (isMobile()) {
-                    if (navMenu.parentElement !== document.body) {
-                        document.body.appendChild(navMenu);
-                    }
-                } else if (navOriginalContainer && navMenu.parentElement !== navOriginalContainer) {
-                    navOriginalContainer.appendChild(navMenu);
-                }
-            }
-            promoteMenuForMobile();
-            
-            // Add event listeners
             if (navToggle) {
                 navToggle.addEventListener('click', toggleMenu);
             }
-            
             if (navOverlay) {
                 navOverlay.addEventListener('click', closeMenu);
             }
             
-            // Reliable mobile navigation
+            // PC dropdown logic (simplified)
+            if (!isMobile() && navItem && dropdownToggle && dropdownMenu) {
+                let hideTimer = null;
+
+                function showDropdown() {
+                    if (hideTimer) {
+                        clearTimeout(hideTimer);
+                        hideTimer = null;
+                    }
+                    navItem.classList.add('dropdown-open');
+                }
+
+                function hideDropdown() {
+                    hideTimer = setTimeout(function() {
+                        navItem.classList.remove('dropdown-open');
+                    }, 200);
+                }
+
+                navItem.addEventListener('mouseenter', showDropdown);
+                dropdownMenu.addEventListener('mouseenter', showDropdown);
+                navItem.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && dropdownMenu.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+                dropdownMenu.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && navItem.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+            }
+
+            // Mobile dropdown click handling
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', function(e) {
+                    if (isMobile()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        navItem.classList.toggle('dropdown-open');
+                    }
+                });
+            }
+
+            // Close mobile menu and navigate when menu item is clicked
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 let startX = 0, startY = 0, startT = 0;
-                const threshold = 8;
-                function onStart(e){ if(!isMobile()) return; const t=e.touches?e.touches[0]:e; startX=t.clientX; startY=t.clientY; startT=Date.now(); }
-                function onEnd(e){ if(!isMobile()) return; const t=e.changedTouches?e.changedTouches[0]:e; const dx=Math.abs(t.clientX-startX); const dy=Math.abs(t.clientY-startY); const dt=Date.now()-startT; if(dx<threshold&&dy<threshold&&dt<1500){ const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href); } } }
+                const threshold = 8; // Allow finger jitter
+                function onStart(e){
+                    if (!isMobile()) return;
+                    const t = e.touches ? e.touches[0] : e;
+                    startX = t.clientX; startY = t.clientY; startT = Date.now();
+                }
+                function onEnd(e){
+                    if (!isMobile()) return;
+                    const t = e.changedTouches ? e.changedTouches[0] : e;
+                    const dx = Math.abs(t.clientX - startX);
+                    const dy = Math.abs(t.clientY - startY);
+                    const dt = Date.now() - startT;
+                    if (dx < threshold && dy < threshold && dt < 1500) {
+                        const href = link.getAttribute('href');
+                        if (href && !href.startsWith('#')) {
+                            e.preventDefault(); 
+                            e.stopPropagation();
+                            closeMenu();
+                            window.location.assign(href);
+                        }
+                    }
+                }
                 link.addEventListener('touchstart', onStart, {passive:true, capture:true});
                 link.addEventListener('touchend', onEnd, {passive:false, capture:true});
                 link.addEventListener('mousedown', onStart, true);
                 link.addEventListener('mouseup', onEnd, true);
-                link.addEventListener('click', function(e){ if(!isMobile()) return; const href=link.getAttribute('href'); if(href){ e.preventDefault(); e.stopPropagation(); window.location.assign(href);} }, true);
+                // Fallback: click event (prevent some environments from not triggering pointer sequence)
+                link.addEventListener('click', function(e){
+                    if (!isMobile()) return;
+                    const href = link.getAttribute('href');
+                    if (href && !href.startsWith('#')) { 
+                        e.preventDefault(); 
+                        e.stopPropagation(); 
+                        closeMenu();
+                        window.location.assign(href); 
+                    }
+                }, true);
             });
+
+            // Email subscription form handling
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = newsletterForm.querySelector('.newsletter-input');
+                    const email = emailInput.value.trim();
+                    if (email) {
+                        alert('Thank you for subscribing! We will send you updates and exclusive offers.');
+                        emailInput.value = '';
+                    }
+                });
+            }
             
-            // Close menu when window size changes
+            // Recheck when window size changes
             window.addEventListener('resize', function() {
                 if (!isMobile()) {
                     closeMenu();
+                } else {
+                    // On mobile, only reinitialize styles, don't change menu display state
+                    promoteMenuForMobile();
                 }
-                promoteMenuForMobile();
             });
             
-            // Add scroll listener to ensure menu position is correct
+            // Also recheck menu state on page scroll, but don't reset menu display state
             window.addEventListener('scroll', function() {
-                if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
-                    // When menu is open, ensure position is correct
-                    navMenu.style.top = '0';
+                if (isMobile()) {
+                    // Only ensure menu is in correct position, don't change display state
+                    if (navMenu.parentElement !== document.body) {
+                        document.body.appendChild(navMenu);
+                    }
+                    // Keep menu's current display state
+                    if (navMenu.classList.contains('nav-menu-active')) {
+                        navMenu.style.transform = 'translateX(0)';
+                    } else {
+                        navMenu.style.transform = 'translateX(-100%)';
+                    }
                 }
             });
-            
-            console.log('Menu initialized with scroll listener');
         });
     </script>
     <script src="compress.js"></script>

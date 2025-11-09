@@ -4,62 +4,323 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link id="favicon" rel="icon" type="image/png" href="../favicon.ico">
     <title>Online free image mosaic - 3x3 Grid Image Splitter</title>
     <meta name="keywords" content="image grid splitter, photo segmenter, grid cutting, social media grid, image splitting tool, grid maker" />
     <meta name="description" content="Free online image grid splitter tool supporting multiple grid formats, custom splitting, social media grid creation, and batch processing" />
     <link rel="canonical" href="https://mosaic.chdaoai.com/nine/nine.html">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YFLKRH7D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB0W88E8NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        gtag('config', 'G-V0YFLKRH7D');
-    </script>
+  gtag('config', 'G-CB0W88E8NY');
+</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css.css">
     <link rel="stylesheet" href="nine.css">
     <style>
-        /* Consistent navbar and header styles with index.html */
-        .navbar { 
-            background: rgba(255, 255, 255, 0.1) !important; 
-            backdrop-filter: blur(10px) !important; 
-            -webkit-backdrop-filter: blur(10px) !important; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; 
+        body { min-height: 120vh; }
+        body { background-color: transparent; }
+        .navbar { position: relative; z-index: auto; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-menu { display: flex; flex-wrap: wrap; gap: 8px; }
+        .nav-link { padding: 0; display: inline-flex; align-items: center; }
+        .nav-toggle { display: none; background: transparent; border: none; padding: 8px; cursor: pointer; }
+        .hamburger { display: block; width: 22px; height: 2px; background: rgba(255, 255, 255, 0.9); margin: 5px 0; transition: transform .25s ease, opacity .25s ease; }
+        .nav-overlay { display: none; }
+
+        @media (min-width: 769px) {
+            .nav-link { padding: 5px 12px; }
+            .nav-menu { gap: 8px; }
+            .nav-item { display: inline-block; }
         }
-        .header-div {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+
+        @media (min-width: 1025px) {
+            html, body { min-width: 1600px; }
+            .header-div, .main-div, .navbar, .nav-container { max-width: none; }
         }
-        /* Mobile drawer menu consistent with index */
+
+        .lang-switch {
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.95);
+            margin-left: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            font-weight: 500;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .lang-switch .ls-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lang-switch .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .lang-switch .divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lang-switch .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .lang-switch .ls-right {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+        .lang-switch .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+        }
+        .lang-switch:hover .arrow {
+            transform: translateY(2px);
+        }
         @media (max-width: 768px) {
-            /* Prevent parent clipping or stacking context from cutting off menu */
+            .lang-switch {
+                position: fixed;
+                right: 12px;
+                height: 38px;
+                padding: 0 14px;
+                z-index: 10002;
+                font-size: 13px;
+            }
+            .lang-switch .badge {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+            .lang-switch .label {
+                font-size: 12px;
+            }
+        }
+
+        .nav-item { 
+            position: relative; 
+            display: inline-block;
+        }
+        .dropdown-toggle { 
+            cursor: pointer; 
+            user-select: none;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            min-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 1000;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            pointer-events: none;
+            overflow: visible;
+            max-height: none;
+            height: auto;
+        }
+        .nav-item:hover .dropdown-menu,
+        .nav-item.dropdown-open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .dropdown-menu .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dropdown-menu .nav-link:hover {
+            background: #f5f5f5;
+            color: #007bff;
+        }
+        .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dropdown-menu {
+                min-width: 480px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .dropdown-menu {
+                min-width: 600px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .dropdown-toggle::before,
+        .nav-link[href="../about.html"]::before,
+        .nav-link[href="../contact.html"]::before {
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .dropdown-toggle::before {
+            content: "🤖";
+        }
+        .nav-link[href="../about.html"]::before {
+            content: "ℹ️";
+        }
+        .nav-link[href="../contact.html"]::before {
+            content: "📧";
+        }
+        
+        @media (min-width: 769px) {
+            .nav-item .dropdown-toggle {
+                color: rgba(255, 255, 255, 0.9);
+                background-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 8px 16px;
+                display: inline-block;
+                font-weight: 500;
+            }
+            .nav-item:hover .dropdown-toggle {
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #fff;
+            }
+        }
+
+        @media (max-width: 768px) {
             .header-div, .navbar, .nav-container { overflow: visible !important; }
             .header-div, .navbar, .nav-container { transform: none !important; -webkit-transform: none !important; }
             .header-div, .navbar, .nav-container { contain: unset !important; }
             .nav-toggle { display: inline-block; }
-            /* Enhance hamburger button visibility (clearer three bars) */
-            .nav-toggle { 
-                position: relative; z-index: 10002; 
-                display: inline-flex; align-items: center; justify-content: center; 
-                width: 40px; height: 40px; padding: 0; margin-left: 8px; 
-                background: rgba(255,255,255,.55); border-radius: 8px; 
-                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+            .nav-menu {
+                position: fixed; top: 0; bottom: 0; left: 0; width: 85%; max-width: 420px;
+                background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,.12);
+                display: block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+                transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; will-change: transform;
             }
-            .hamburger { width: 22px; height: 3px; background: #333; margin: 3px 0; border-radius: 2px; }
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(1){ transform: translateY(7px) rotate(45deg);} 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(2){ opacity:1; } 
-            .nav-toggle.nav-toggle-active .hamburger:nth-child(3){ transform: translateY(-7px) rotate(-45deg);} 
-            .nav-menu { position: fixed; top:0; bottom:0; left:0; width:78%; max-width:360px; background:#fff; box-shadow:2px 0 10px rgba(0,0,0,.12); display:block; padding: calc(env(safe-area-inset-top,0) + 12px) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch; transform: translateX(-100%); transition: transform .25s ease; z-index: 10001; }
+            .nav-menu .nav-link { display: flex; align-items: center; padding: 0; border-bottom: 1px solid #f2f2f2; }
             .nav-menu.nav-menu-active { transform: translateX(0); }
-            .nav-menu .nav-link { display:flex; align-items:center; padding:0; border-bottom:1px solid #f2f2f2; margin:10px 0; }
-            .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:10000; display:block; }
-            .nav-overlay.nav-overlay-active { opacity:1; pointer-events:auto; }
+
+            .nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 10000; display: block; }
+            .nav-overlay.nav-overlay-active { opacity: 1; pointer-events: auto; }
+
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(2) { opacity: 0; }
+            .nav-toggle.nav-toggle-active .hamburger:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            .nav-menu .nav-link { margin: 10px 0; }
+            
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            .dropdown-toggle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 16px 20px;
+                color: #333;
+                background: white;
+                border: none;
+                text-align: left;
+                font-size: 1rem;
+                font-weight: 500;
+                margin: 0;
+            }
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                transform: none;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                transition: opacity 0.3s ease, max-height 0.3s ease;
+                border-radius: 0;
+                display: block !important;
+                grid-template-columns: 1fr !important;
+                min-width: auto !important;
+            }
+            .nav-item.dropdown-open .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 2000px;
+            }
+            .dropdown-menu .nav-link {
+                padding: 12px 20px 12px 40px;
+                font-size: 14px;
+                border-bottom: 1px solid #e9ecef;
+                color: #333;
+                text-align: left;
+            }
+            .dropdown-menu .nav-link:hover {
+                background: #e9ecef;
+            }
+            
+            .dropdown-toggle::before,
+            .nav-link[href="about.html"]::before,
+            .nav-link[href="contact.html"]::before {
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 18px;
+            }
         }
-        /* Left-align nav links under #navMenu */
-        #navMenu { justify-content: flex-start !important; text-align: left; }
-        #navMenu .nav-link { justify-content: flex-start !important; text-align: left !important; }
     </style>
 </head>
 <body>
@@ -72,35 +333,50 @@
                     <span class="hamburger"></span>
                 </button>
                 <div class="nav-menu" id="navMenu">
-                    <a href="../index.html" class="nav-link">Mosaic</a>
-                    <a href="../crop/crop.html" class="nav-link">Crop</a>
-                    <a href="../convert/convert.html" class="nav-link">Convert</a>
-                    <a href="../icon/icon.html" class="nav-link">Icon</a>
-                    <a href="../compress/compress.html" class="nav-link">Compress</a>
-                    <a href="../blank/blank.html" class="nav-link">Black&White</a>
-                    <a href="../watermark/watermark.html" class="nav-link">Add WMK</a>
-                    <a href="../removewm/removewm.html" class="nav-link">Remove WMK</a>
-                    <a href="nine.html" class="nav-link">3x3 Grid</a>
-                    <a href="../text/text.html" class="nav-link">Text2Img</a>
-                    <a href="../join/join.html" class="nav-link">Stitching</a>
-                    <a href="../textToimage/textToimage.html" class="nav-link">Add Text2Img</a>
-                    <a href="../corner/corner.html" class="nav-link">RC</a>
-                    <a href="../expand/expand.html" class="nav-link">Upscale</a>
-                    <a href="../old/old.html" class="nav-link">OPR</a>
-                    <a href="../bg/bg.html" class="nav-link">Colorize B/W</a>
-                    <a href="../removebg/removebg.html" class="nav-link">BG Remover</a>
-                    <a href="../changebg/changebg.html" class="nav-link">BG Changer</a>
+                    <div class="nav-item">
+                        <span class="nav-link dropdown-toggle">Image AI tool</span>
+                        <div class="dropdown-menu">
+                            <a href="../index.html" class="nav-link">Image Mosaic</a>
+                            <a href="../crop/crop.html" class="nav-link">Crop Image</a>
+                            <a href="../convert/convert.html" class="nav-link">Format Convert</a>
+                            <a href="../icon/icon.html" class="nav-link">Icon Generator</a>
+                            <a href="../compress/compress.html" class="nav-link">Compress Image</a>
+                            <a href="../blank/blank.html" class="nav-link">Grayscale</a>
+                            <a href="../watermark/watermark.html" class="nav-link">Add Watermark</a>
+                            <a href="../removewm/removewm.html" class="nav-link">Remove Watermark</a>
+                            <a href="nine.html" class="nav-link">Image Grid</a>
+                            <a href="../text/text.html" class="nav-link">Text to Image</a>
+                            <a href="../join/join.html" class="nav-link">Merge Images</a>
+                            <a href="../textToimage/textToimage.html" class="nav-link">Add Text</a>
+                            <a href="../corner/corner.html" class="nav-link">Round Corners</a>
+                            <a href="../expand/expand.html" class="nav-link">Upscale Image</a>
+                            <a href="../old/old.html" class="nav-link">Restore Photo</a>
+                            <a href="../bg/bg.html" class="nav-link">Colorize Image</a>
+                            <a href="../removebg/removebg.html" class="nav-link">Remove Background</a>
+                            <a href="../changebg/changebg.html" class="nav-link">Change Background</a>
+                        </div>
+                    </div>
+                    <a href="../about.html" class="nav-link">About</a>
+                    <a href="../contact.html" class="nav-link">Contact</a>
                 </div>
+                <a class="lang-switch" href="https://mosaic.openai2025.com/nine/nine.html" rel="nofollow" aria-label="Switch to Chinese version">
+                    <span class="ls-left">
+                        <span class="badge">CN</span>
+                        <span class="divider"></span>
+                        <span class="label">中文</span>
+                    </span>
+                    <span class="ls-right"><i class="arrow"></i></span>
+                </a>
             </div>
         </nav>
         <h1 class="header-title">3x3 Grid Split</h1>
     </header>
 
-    <!-- 移动端菜单遮罩层 -->
+    <!-- Mobile menu overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
     <main class="main-container">
-        <!-- 文件上传区域 -->
+        <!-- File upload area -->
         <section class="upload-section">
             <div class="upload-area">
                 <label for="fileInput" class="file-label">
@@ -113,13 +389,13 @@
             </div>
         </section>
 
-        <!-- 切图设置区域 -->
+        <!-- Split settings area -->
         <section class="settings-section" id="settingsSection" style="display: none;">
             <div class="settings-container">
                 <h3>Split Settings</h3>
                 
                 <div class="settings-grid">
-                    <!-- 网格类型选择 -->
+                    <!-- Grid type selection -->
                     <div class="setting-group">
                         <label class="setting-label">Grid Type</label>
                         <div class="grid-types">
@@ -136,7 +412,7 @@
                         </div>
                     </div>
 
-                    <!-- 预设网格选择 -->
+                    <!-- Preset grid selection -->
                     <div class="setting-group" id="presetGridGroup">
                         <label class="setting-label">Preset Grid</label>
                         <div class="preset-grids">
@@ -183,7 +459,7 @@
                         </div>
                     </div>
 
-                    <!-- 自定义网格设置 -->
+                    <!-- Custom grid settings -->
                     <div class="setting-group" id="customGridGroup" style="display: none;">
                         <label class="setting-label">Custom Grid</label>
                         <div class="custom-grid-controls">
@@ -197,11 +473,11 @@
                             </div>
                         </div>
                         <div class="custom-grid-preview" id="customGridPreview">
-                            <!-- 自定义网格预览将在这里生成 -->
+                            <!-- Custom grid preview will be generated here -->
                         </div>
                     </div>
 
-                    <!-- 切图选项 -->
+                    <!-- Split options -->
                     <div class="setting-group">
                         <label class="setting-label">Split Options</label>
                         <div class="cut-options">
@@ -228,7 +504,7 @@
                         </div>
                     </div>
 
-                    <!-- 边框设置 -->
+                    <!-- Border settings -->
                     <div class="setting-group" id="borderSettings" style="display: none;">
                         <label class="setting-label">Border Settings</label>
                         <div class="border-controls">
@@ -244,7 +520,7 @@
                         </div>
                     </div>
 
-                    <!-- 编号设置 -->
+                    <!-- Numbering settings -->
                     <div class="setting-group" id="numberSettings" style="display: none;">
                         <label class="setting-label">Numbering Settings</label>
                         <div class="number-controls">
@@ -281,7 +557,7 @@
                         </div>
                     </div>
 
-                    <!-- 输出设置 -->
+                    <!-- Output settings -->
                     <div class="setting-group">
                         <label class="setting-label">Output Settings</label>
                         <div class="output-options">
@@ -313,17 +589,17 @@
             </div>
         </section>
 
-        <!-- 图片列表区域 -->
+        <!-- Image list area -->
         <section class="images-section" id="imagesSection" style="display: none;">
             <div class="images-container">
                 <h3>Image List</h3>
                 <div class="images-grid" id="imagesGrid">
-                    <!-- 图片项将动态添加到这里 -->
+                    <!-- Image items will be dynamically added here -->
                 </div>
             </div>
         </section>
 
-        <!-- 进度区域 -->
+        <!-- Progress area -->
         <section class="progress-section" id="progressSection" style="display: none;">
             <div class="progress-container">
                 <h3>Processing Progress</h3>
@@ -334,7 +610,7 @@
             </div>
         </section>
 
-        <!-- 结果区域 -->
+        <!-- Results area -->
         <section class="results-section" id="resultsSection" style="display: none;">
             <div class="results-container">
                 <h3>Results</h3>
@@ -344,35 +620,222 @@
                     <button id="downloadPreviewBtn" class="btn btn-warning">Download Preview</button>
                 </div>
                 <div class="results-grid" id="resultsGrid">
-                    <!-- 切图结果将显示在这里 -->
+                    <!-- Split results will be displayed here -->
                 </div>
             </div>
         </section>
+    </main>
 
-        <!-- 使用说明 -->
-        <section class="instructions-section">
-            <div class="instructions-container">
-                <h3>Instructions</h3>
-                <div class="instructions-content">
-                    <div class="instruction-item">
-                        <h4>3x3 Grid Split</h4>
-                        <p>Split one image into 9 smaller images, perfect for social media sharing to showcase more details</p>
+    <!-- Feature description and usage guide section -->
+    <section class="info-section">
+        <div class="info-container">
+            <!-- Feature description -->
+            <div class="info-card">
+                <h2>📋 Feature Description</h2>
+                <p>Our 3x3 Grid Splitter tool provides powerful image splitting capabilities to divide images into multiple grid sections:</p>
+                <ul>
+                    <li><strong>Multiple Grid Formats:</strong> Support preset grids (1x1, 2x2, 3x3, 4x4, etc.) and custom row/column configurations</li>
+                    <li><strong>Batch Processing:</strong> Split up to 10 images at once</li>
+                    <li><strong>Customizable Options:</strong> Add borders, numbering, and shadows to split images</li>
+                    <li><strong>Output Formats:</strong> Keep original format or convert to JPEG, PNG, WebP</li>
+                    <li><strong>ZIP Download:</strong> Download all split images as a ZIP archive for convenience</li>
+                </ul>
+            </div>
+
+            <!-- Usage guide -->
+            <div class="info-card">
+                <h2>💡 Usage Guide</h2>
+                <ol>
+                    <li>Click "Click to select image" or drag & drop images to upload (up to 10 images)</li>
+                    <li>Choose grid type: Preset Grid or Custom Grid</li>
+                    <li>Select a preset grid (e.g., 3x3) or set custom rows and columns</li>
+                    <li>Enable optional features: Add Borders, Add Numbering, Add Shadows</li>
+                    <li>Configure border settings (color and width) if borders are enabled</li>
+                    <li>Configure numbering settings (position and style) if numbering is enabled</li>
+                    <li>Choose output format (keep original, JPEG, PNG, or WebP)</li>
+                    <li>Click "Start Splitting" to process images</li>
+                    <li>Download individual results, download all as ZIP, or download preview</li>
+                </ol>
+            </div>
+
+            <!-- Use cases -->
+            <div class="info-card">
+                <h2>🎨 Use Cases</h2>
+                <div class="use-cases">
+                    <div class="use-case-item">
+                        <strong>Social Media:</strong> Split images into 3x3 or 2x3 grids for Instagram posts
                     </div>
-                    <div class="instruction-item">
-                        <h4>Multiple Grid Options</h4>
-                        <p>Supports various preset grids like 2x2, 3x3, 4x4, and custom rows and columns</p>
+                    <div class="use-case-item">
+                        <strong>Photo Collages:</strong> Create grid-based photo collages for presentations or portfolios
                     </div>
-                    <div class="instruction-item">
-                        <h4>Borders & Numbering</h4>
-                        <p>Add borders and numbering to split images for easy sorting and identification</p>
+                    <div class="use-case-item">
+                        <strong>Image Organization:</strong> Split large images into smaller sections for easier organization
                     </div>
-                    <div class="instruction-item">
-                        <h4>Batch Processing</h4>
-                        <p>Upload multiple images at once and generate grid splits in batch for increased efficiency</p>
+                    <div class="use-case-item">
+                        <strong>Creative Projects:</strong> Use grid splits for artistic compositions and design projects
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- Video tutorial section -->
+    <section class="examples-section">
+        <div class="examples-container">
+            <h2>📹 Video Tutorial</h2>
+            <div class="examples-grid">
+                <div class="example-card example-video-card">
+                    <h3>How to Use 3x3 Grid Splitter</h3>
+                    <div class="example-video-wrapper">
+                        <video src="/static/image/nine.mp4" controls class="example-video" poster="">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="example-description">
+                        <strong>Video Guide:</strong> Watch this tutorial video to learn how to use our 3x3 Grid Splitter tool effectively. See step-by-step instructions for splitting images into grids, configuring grid settings, adding borders and numbering, and downloading your results.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Instructions section (keeping original) -->
+    <section class="instructions-section">
+        <div class="instructions-container">
+            <h3>Instructions</h3>
+            <div class="instructions-content">
+                <div class="instruction-item">
+                    <h4>3x3 Grid Split</h4>
+                    <p>Split one image into 9 smaller images, perfect for social media sharing to showcase more details</p>
+                </div>
+                <div class="instruction-item">
+                    <h4>Multiple Grid Options</h4>
+                    <p>Supports various preset grids like 2x2, 3x3, 4x4, and custom rows and columns</p>
+                </div>
+                <div class="instruction-item">
+                    <h4>Borders & Numbering</h4>
+                    <p>Add borders and numbering to split images for easy sorting and identification</p>
+                </div>
+                <div class="instruction-item">
+                    <h4>Batch Processing</h4>
+                    <p>Upload multiple images at once and generate grid splits in batch for increased efficiency</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership plans section -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <h2>💎 Membership Plans</h2>
+            <div class="pricing-grid">
+                <!-- Monthly plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Monthly Plan</h3>
+                        <div class="price">$6.6<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited grid splitting</li>
+                        <li>✓ All grid formats</li>
+                        <li>✓ Batch processing (up to 20 images)</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Ad-free experience</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- Quarterly plan -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Best Value</div>
+                    <div class="pricing-header">
+                        <h3>Quarterly Plan</h3>
+                        <div class="price">$16.66<span>/3 months</span></div>
+                        <div class="price-save">Save 17%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Monthly</li>
+                        <li>✓ Unlimited batch processing</li>
+                        <li>✓ Advanced grid options</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom grid presets</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+
+                <!-- Annual plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Annual Plan</h3>
+                        <div class="price">$56.66<span>/year</span></div>
+                        <div class="price-save">Save 33%</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Quarterly</li>
+                        <li>✓ Unlimited storage</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ Early access to new features</li>
+                    </ul>
+                    <button class="pricing-btn">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter subscription section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>📧 Subscribe to Our Newsletter</h2>
+            <p>Get access to usage guides, use cases, and exclusive membership offers</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email address" required class="newsletter-input">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+            <p class="newsletter-note">By subscribing, you'll receive usage guides, use cases, and membership information.</p>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Image Mosaic</a></li>
+                        <li><a href="../crop/crop.html">Crop Image</a></li>
+                        <li><a href="../convert/convert.html">Format Convert</a></li>
+                        <li><a href="../icon/icon.html">Icon Generator</a></li>
+                        <li><a href="nine.html">Image Grid</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Chuandao AI provides cutting-edge image processing tools to help you create, edit, and enhance your images with ease.</p>
+                    <a href="../about.html" class="footer-link">Learn More</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:support@chuandaoai.com">support@chuandaoai.com</a></p>
+                    <p>We're here to help with any questions or concerns.</p>
+                    <a href="../contact.html" class="footer-link">Get in Touch</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright © Chuandao AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     </main>
 
     <script>
@@ -464,7 +927,7 @@
                     navToggle.classList.remove('nav-toggle-active');
                     navOverlay.classList.remove('nav-overlay-active');
                     navMenu.style.transform = 'translateX(-100%)';
-                    // 恢复页面滚动
+                    // Restore page scrolling
                     document.body.classList.remove('menu-open');
                     document.documentElement.classList.remove('menu-open');
                 }
@@ -517,10 +980,57 @@
             // Add scroll listener to ensure menu position is correct
             window.addEventListener('scroll', function() {
                 if (isMobile() && navMenu.classList.contains('nav-menu-active')) {
-                    // 菜单打开时，确保位置正确
+                    // When menu is open, ensure position is correct
                     navMenu.style.top = '0';
                 }
             });
+            
+            // PC dropdown logic
+            const navItem = document.querySelector('.nav-item');
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            if (!isMobile() && navItem && dropdownToggle && dropdownMenu) {
+                let hideTimer = null;
+
+                function showDropdown() {
+                    if (hideTimer) {
+                        clearTimeout(hideTimer);
+                        hideTimer = null;
+                    }
+                    navItem.classList.add('dropdown-open');
+                }
+
+                function hideDropdown() {
+                    hideTimer = setTimeout(function() {
+                        navItem.classList.remove('dropdown-open');
+                    }, 200);
+                }
+
+                navItem.addEventListener('mouseenter', showDropdown);
+                dropdownMenu.addEventListener('mouseenter', showDropdown);
+                navItem.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && dropdownMenu.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+                dropdownMenu.addEventListener('mouseleave', function(e) {
+                    if (e.relatedTarget && navItem.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    hideDropdown();
+                });
+            }
+            
+            // Mobile dropdown toggle
+            if (isMobile() && dropdownToggle) {
+                dropdownToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navItem.classList.toggle('dropdown-open');
+                });
+            }
             
             console.log('Menu initialized with scroll listener');
         });
