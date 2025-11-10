@@ -257,3 +257,15 @@ nine原来的背景色去掉，改为跟index一样的背景色，
 对应的css文件不需要把中文转为英文，html需要中文转为英文
 页面的中文转为英文，
 并更新页面内容，保持功能不变，
+
+
+
+
+
+对index 页面的添加googel 登录功能，登录按钮放在切换语言前面，
+将登录后的用户保存到supabase中
+supabase:
+https://byzomtkatfvwtnpwfdby.supabase.co
+
+key:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5em9tdGthdGZ2d3RucHdmZGJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3NzgwNTEsImV4cCI6MjA3ODM1NDA1MX0.TmrBVEErxnhLPRV-xdP3G1B7B_z-BTx7gNeq821v32I

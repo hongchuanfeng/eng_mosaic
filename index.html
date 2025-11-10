@@ -394,6 +394,11 @@
                     <a href="about.html" class="nav-link">About</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
+                <button id="loginBtn" class="lang-switch" style="margin-left:0;margin-right:12px;" aria-label="Sign in with Google">
+                    <span class="ls-left">
+                        <span class="label" id="loginLabel">Sign in with Google</span>
+                    </span>
+                </button>
                 <a class="lang-switch" href="https://mosaic.openai2025.com/" rel="nofollow" aria-label="Switch to Chinese version">
                     <span class="ls-left">
                         <span class="badge">CN</span>
@@ -1471,6 +1476,19 @@
             }
         });
     </script>  
+
+    <!-- Shared Auth Module -->
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if (window.AppAuth && typeof window.AppAuth.init === 'function') {
+                window.AppAuth.init({
+                    loginButtonId: 'loginBtn',
+                    loginLabelId: 'loginLabel'
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
